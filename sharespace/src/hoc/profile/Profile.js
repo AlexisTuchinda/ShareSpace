@@ -13,6 +13,12 @@ class Profile extends React.Component{
             posts: props.posts,
             upvotes: props.upvotes
         }
+
+        this.pressed = this.pressed.bind(this);
+    }
+
+    pressed(e){
+        // this.setState({username: ""})
     }
 
     componentDidMount(){
@@ -29,9 +35,9 @@ class Profile extends React.Component{
         // runs every frame
         // !
 
-        if(prev.state.posts.length != next.state.posts.length){
-            this.setState({posts:next.state.posts})
-        }
+        // if(prev.state.posts.length != next.state.posts.length){
+        //     // this.setState({posts:next.state.posts})
+        // }
     }
 
     componentWillUnmount(){
@@ -39,8 +45,8 @@ class Profile extends React.Component{
     }
 
     render(){
-        return(<div>
-
+        return(<div class = "profile">
+            
         </div>)
     }
 }

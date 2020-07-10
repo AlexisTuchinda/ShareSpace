@@ -2,15 +2,59 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Profile from './hoc/profile/Profile'
+import Home from './hoc/home/Home'
+import Login from './hoc/login/Login'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Profile username = {"whaleguy"} name = {"dude"} bio = {"hi"} followers = {"1M"} following = {1}/>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/profile">
+            <ProfilePage />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
-export default App;
+function HomePage() {
+  return <Home/>;
+}
+
+function ProfilePage() {
+  return <Profile/>;
+}
+
+function Login() {
+  return <Login/>;
+}
