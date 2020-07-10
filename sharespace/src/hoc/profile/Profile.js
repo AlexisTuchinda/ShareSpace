@@ -15,32 +15,9 @@ class Profile extends React.Component{
         }
     }
 
-    componentDidMount(){
-        // after loading
-
-        this.setState({upvotes:this.state.upvotes+1})
-    }
-
-    componentWillMount(){
-        // loading
-    }
-
-    componentDidUpdate(prev, next){
-        // runs every frame
-        // !
-
-        if(prev.state.posts.length != next.state.posts.length){
-            this.setState({posts:next.state.posts})
-        }
-    }
-
-    componentWillUnmount(){
-        // preresets, auto runs after leaving page
-    }
-
     render(){
         return(<div>
-
+            Profile
         </div>)
     }
 }
