@@ -33,7 +33,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/login">
-            <Login />
+            <LoginPage/>
           </Route>
           <Route path="/profile">
             <ProfilePage />
@@ -55,6 +55,6 @@ function ProfilePage() {
   return <Profile/>;
 }
 
-function Login() {
+function LoginPage() {
   return <Login/>;
 }
