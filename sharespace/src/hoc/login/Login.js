@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import "./styles.css";
-import ApiLogin from "./fake-api.json";
+import "./Login.css";
+//import ApiLogin from "./fake-api.json";
 //import Home from "../home/Home"
 
 function Login() {
@@ -32,7 +32,7 @@ function Login() {
     const userInformation = {
       ...loginInfo
     };
-    if (JSON.stringify(ApiLogin) === JSON.stringify(userInformation)) {
+    if ("apple" === JSON.stringify(userInformation)) {
       setIsLogged(true);
     }
   };
