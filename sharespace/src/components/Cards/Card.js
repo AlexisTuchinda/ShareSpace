@@ -10,7 +10,7 @@ class Card extends React.Component {
             artist = props.user,
             image = props.url,
             votes = 0
-        }
+        };
     }
 
     /*
@@ -33,6 +33,6 @@ class Card extends React.Component {
             <div>
                 <h3>{this.state.votes}+" votes"</h3>
             </div>
-        )
+        );
     }
 }

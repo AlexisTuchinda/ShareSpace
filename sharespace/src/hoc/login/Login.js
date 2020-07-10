@@ -47,7 +47,7 @@ function Login() {
   };
 
   return (
-    <div className="App">
+    <div className="Login">
       <input
         onChange={changeUsername}
         value={loginInfo.username}
