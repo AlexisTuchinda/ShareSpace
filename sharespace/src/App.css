@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
 .App {
   width: 100vw;
 }
@@ -7,4 +9,24 @@
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.navigation{
+  background-color: #332538;
+}
+
+ul {
+  display: table;
+  padding: 0%;
+  margin: 0%;
+  width: 100%;
+}
+
+.nagivation li {
+ display: table-cell;
+ width: 0%;
+ padding: 0%;
+ margin: 0%;
+ text-decoration: none;
+ font-family: "Rubik";
 }
