@@ -16,17 +16,19 @@ export default function App() {
     <Router>
       <div>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
+          <div class = "navigation"> 
+            <ul>
+              <li>
+                <Link to="/" style = {{textDecoration: "none", color: "#a9a1ab", fontSize: 20, fontFamily: "Rubik"}} >Home</Link>
+              </li>
+              <li>
+                <Link to="/profile" style = {{textDecoration: "none", color: "#a9a1ab", fontSize: 20, fontFamily: "Rubik"}} >Profile</Link>
+              </li>
+              <li>
+                <Link to="/login" style = {{textDecoration: "none", color: "#a9a1ab", fontSize: 20, fontFamily: "Rubik"}} >Login</Link>
+              </li>
+            </ul>
+          </div>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
