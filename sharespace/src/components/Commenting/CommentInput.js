@@ -6,6 +6,7 @@ function CommentInput() {
     return (
         <div>
             <input placeholder = {"COMMENT"} onChange = {(e) =>  GetValue(e.target.value)}></input>
+            <button></button>
         </div>
     );
 }
