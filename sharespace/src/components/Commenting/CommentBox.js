@@ -55,7 +55,7 @@ class CommentBox extends React.Component{
                     </form>
                 </div>
                 <div>
-                    <button onClick={()=>{this.state.showComments ? this.setState({showComments:false}) : this.setState({showComments:true})}}>OTHER COMMENTS</button>
+                    <button onClick={()=>{this.state.showComments ? this.setState({showComments:false}) : this.setState({showComments:true})}}>{this.state.showComments ? "HIDE COMMENTS" :  "SHOW COMMENTS"}</button>
                     {this.displayComments()}
                 </div>
             </div>
