@@ -7,7 +7,7 @@ class Home extends React.Component{
         super(props);
         this.state = {
             username: "Dad",
-            isAuthenticated: true
+            isAuthenticated: false
         }
     }
 
