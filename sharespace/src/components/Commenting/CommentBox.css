@@ -1,0 +1,6 @@
+
+.commentColumn {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}

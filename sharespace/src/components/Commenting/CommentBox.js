@@ -1,34 +1,31 @@
 import React from "react";
 import Comment from "./Comment";
+import "./CommentBox.css";
 
 class CommentBox extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            comments: [<Comment username = {"TEST"} value= {"HELLO"}/>],
+            comments: [<Comment username = {"TEST"} value = {"COMMENT"}/>],
             username: props.username,
             commentInput: "",
             showComments: false
         };
-        this.count = 1;
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        //this.displayComments = this.displayComments.bind(this);
     }
 
     createNewComment(){
-        let x = this.state.comments.filter(comment => comment.display);
-        if (this.state.commentInput !== ""){
-            this.state.comments[x.length+this.count] = <Comment username = {this.state.username} value =  {this.state.commentInput}/>
-            this.count+=1;
-        }
+        this.setState({comments:[...this.state.comments, <Comment username = {this.state.username} value = {this.state.commentInput}/>]}); 
     }
 
-    displayComments (){
+    displayComments(){
         if (this.state.showComments){
             return(
-                <div>
-                    {this.state.comments.map((comment) => (<ul>{comment}</ul>))}
+                <div class = "commentColumn">
+                    {this.state.comments.map((comment, index) => (<li key = {index}>{comment}</li>))}
                 </div>
             )
         }
@@ -40,6 +37,7 @@ class CommentBox extends React.Component{
       
     handleSubmit(event){
         this.createNewComment();
+        this.setState({commentInput: ""})
         event.preventDefault();
     }
 

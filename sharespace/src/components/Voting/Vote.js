@@ -9,17 +9,14 @@ class Vote extends React.Component{
             currentUser: props.username
         };
 
-        this.count = 0;
+        //this.checkUser = this.checkUser.bind(this);
     }
 
     checkUser(){
         if (!this.state.voters.some(item => this.state.currentUser === item)){
-            let y = this.state.voters.filter(comment => comment.display);
-            this.state.voters[y.length+this.count] = this.state.currentUser;
-            this.count+=1;
             return(
                 <div>
-                    <button onClick = {() => this.setState({ votes: this.state.votes + 1 })}>VOTE</button>
+                    <button onClick = {() => this.setState({ votes: this.state.votes + 1 }, this.setState({voters:[...this.state.voters, this.state.currentUser]}))}>VOTE</button>
                 </div>
             )
         } else{
@@ -34,7 +31,7 @@ class Vote extends React.Component{
     render(){
         return(
             <div>
-                <h4>{this.state.votes} votes</h4>
+                <ul>{this.state.votes} votes</ul>
                 {this.checkUser()}
             </div>
         )

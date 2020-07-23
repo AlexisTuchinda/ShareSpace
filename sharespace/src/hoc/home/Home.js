@@ -7,14 +7,17 @@ class Home extends React.Component{
         super(props);
         this.state = {
             username: "Dad",
-            isAuthenticated: false
+            isAuthenticated: true
         }
     }
 
     render(){
         //get existing card information from database + store all created cards
         return(<div>
-            <Card username= {this.state.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {this.state.isAuthenticated} />
+            <div className = "cardGrid">
+                <Card username= {this.state.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {this.state.isAuthenticated} />
+                <Card username= {this.state.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {this.state.isAuthenticated} />
+            </div>
         </div>)
     }
 }
