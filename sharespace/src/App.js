@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Profile from './hoc/profile/Profile'
@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 
 export default function App() {
+  
   return (
     <Router>
       <div>

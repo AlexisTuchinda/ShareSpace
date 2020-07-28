@@ -1,6 +1,7 @@
 
 .commentColumn {
-    background-color: transparent;
     display: flex;
     flex-direction: column;
+    background-color: #726078;
+
 }

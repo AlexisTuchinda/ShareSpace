@@ -21,6 +21,7 @@ body{
     border: none;
 }
 
+/*
 ul {
     display: table;
     padding: 0%;
@@ -28,12 +29,14 @@ ul {
     width: 100%;
 }
 
+
 li {
    display: table-cell;
    width: 0%;
    padding: 0%;
    margin: 0%;
 }
+*/
   
 button {
     display: block;

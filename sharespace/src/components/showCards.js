@@ -1,11 +1,14 @@
 import React,{useState} from "react";
+import "../hoc/home/Home.css";
 
 function showCards(props) {
     
     const cards = props.cards;
-    const show = cards.map((card) => 
-    <ul>(card)</ul>
+    const show = cards.map((card, index) => 
+    <ul key = {index}>{card}</ul>
     );
 
-    return <div>{this.show}</div>
+    return <div className = "cardGrid">{show}</div>
 };
+
+export default showCards;
