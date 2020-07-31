@@ -3,6 +3,7 @@ export const AUTH_SIGNUP_START = "AUTH_SIGNUP_START";
 export const AUTH_SIGHUP_SUCCESS = "AUTH_SIGNUP_SUCCESS";
 export const AUTH_SIGNUP_FAIL = "AUTH_SIGNUP_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
+export const AUTH = "AUTH";
 
 //User
 export const GET_ALL_USER_DATA = "GET_ALL_USER_DATA";
