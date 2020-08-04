@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./Login.css";
 //import ApiLogin from "./fake-api.json";
 //import Home from "../home/Home"
+import Signup from "../signup/Signup";
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
@@ -12,20 +13,13 @@ function Login() {
 
   const [isLogged, setIsLogged] = useState(false);
 
+  const [inSignup, enterSignup]  = useState({signup:null})
+
   const changeUsername = e => {
     setLoginInfo({
       ...loginInfo,
       username: e.target.value
     });
-  };
-
-  const changePassword = e => {
-    if (e.target.value[e.target.value.length - 1] !== "x") {
-      setLoginInfo({
-        ...loginInfo,
-        password: e.target.value
-      });
-    }
   };
 
   const submit = () => {
@@ -37,30 +31,49 @@ function Login() {
     }
   };
 
-  const logOut = () => {
-    setIsLogged(false);
+  const changePassword = e => {
     setLoginInfo({
-      ...loginInfo,
-      username: "",
-      password: ""
-    });
-  };
+        ...loginInfo,
+        password: e.target.value
+      });
+  }
+
+  const startSignup = () => {
+    enterSignup({
+        ...inSignup,
+        signup: <Signup/>
+    })
+  }
+
+//   const logOut = () => {
+//     setIsLogged(false);
+//     setLoginInfo({
+//       ...loginInfo,
+//       username: "",
+//       password: ""
+//     });
+//   };
 
   return (
-    <div className="Login">
+    <div className="outerContainer">
       <input
         onChange={changeUsername}
         value={loginInfo.username}
         id="usernameInput"
+        placeholder="Username"
       />
       <input
         onChange={changePassword}
         value={loginInfo.password}
         id="passwordInput"
+        placeholder = "Password"
       />
       <button onClick={submit}>LOGIN</button>
       <h2>{isLogged ? "LOGGED IN" : ""}</h2>
-      <button onClick={logOut}>Log Out</button>
+      <div>
+          <button onClick={startSignup}>Sign Up?</button>
+          <Signup/>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,10 @@
+
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: auto;
+    margin: auto;
+    background: #332538;
+    padding: 10px;
+}

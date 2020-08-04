@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 //import {unregister} from "./serviceWorker";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import mainReducer from "./store/reducers/main";
 import './index.css';
 import App from './App';

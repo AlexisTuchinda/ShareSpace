@@ -8,6 +8,15 @@ const initialState = {
     loggedIn: false
 }
 
+const startSignup = (state, action) => {
+    return updateObject(state, {
+        userData: null,
+        error: null,
+        isAuthenticated: false,
+        loggedIn: true
+    })
+}
+
 const signupSuccess = (state, action) => {
     return updateObject(state, {
         userData: action.userData,
