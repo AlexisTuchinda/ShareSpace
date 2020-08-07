@@ -31,3 +31,6 @@ export const GET_CURRENT_CARDS = 'GET_CURRENT_CARDS';
 
 //other
 export const RESET_ALL = "RESET_ALL";
+
+//test
+export const TEST = "TEST";

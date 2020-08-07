@@ -5,7 +5,8 @@ const initialState = {
     isAuthenticated: false,
     userData: null,
     error: "",
-    loggedIn: false
+    loggedIn: false,
+    message: ""
 }
 
 const startSignup = (state, action) => {
@@ -44,6 +45,13 @@ const logout = (state, action) => {
     });
 }
 
+const test =(state, action) => {
+    console.log("TEST");
+    return updateObject(state, {
+        message: action.word
+    })
+}
+
 const auth = (state, action) => {return state};
 
 const reducer = (state = initialState, action) => {
@@ -53,6 +61,7 @@ const reducer = (state = initialState, action) => {
         case(actionTypes.AUTH_SIGNUP_FAIL): return signupFailed(state, action);
         case(actionTypes.AUTH_LOGOUT): return logout(state, action);
         case(actionTypes.AUTH): return auth(state, action);
+        case(actionTypes.TEST): return test(state, action);
         default: return state;
     }
 }

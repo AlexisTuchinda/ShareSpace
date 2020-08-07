@@ -1,7 +1,8 @@
 export {
     auth,
-    startSignup,
-    signupSuccess,
-    signupFailed,
-    logout
+    authSignupStart,
+    authSignupSuccess,
+    authSignupFail,
+    logout,
+    test
 } from "./main"

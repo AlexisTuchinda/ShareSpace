@@ -70,10 +70,8 @@ function Login() {
       />
       <button onClick={submit}>LOGIN</button>
       <h2>{isLogged ? "LOGGED IN" : ""}</h2>
-      <div>
           <button onClick={startSignup}>Sign Up?</button>
-          <Signup/>
-      </div>
+          {inSignup.signup}
     </div>
   );
 }
