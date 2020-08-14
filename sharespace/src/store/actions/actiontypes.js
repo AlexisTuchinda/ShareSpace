@@ -6,7 +6,7 @@ export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH = "AUTH";
 
 //User
-export const GET_ALL_USER_DATA = "GET_ALL_USER_DATA";
+export const GET_USER_DATA = "GET_USER_DATA";
 
 //Community Chat
 export const ADD_TO_COMMUNITY_CHAT = "ADD_TO_COMMUNITY_CHAT";
@@ -28,6 +28,7 @@ export const PICK_NEW_RANDOM = 'PICK_NEW_RANDOM';
 export const CHOOSE_CARD = 'CHOOSE_CARD';
 export const UPDATE_CURRENT_CARDS = 'UPDATE_CURRENT_CARDS';
 export const GET_CURRENT_CARDS = 'GET_CURRENT_CARDS';
+export const SHOW_CARDS = 'SHOW_CARDS';
 
 //other
 export const RESET_ALL = "RESET_ALL";

@@ -4,5 +4,8 @@ export {
     authSignupSuccess,
     authSignupFail,
     logout,
-    test
+    showCards,
+    addData,
+    getUserData
+    //test
 } from "./main"

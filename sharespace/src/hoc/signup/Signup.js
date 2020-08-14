@@ -1,13 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import "../login/Login.css";
-
+import {connect, useDispatch} from "react-redux";
+import {withRouter} from "react-router-dom";
+import * as actions from "../../store/actions";
+import {auth} from "../../store/actions";
 
 function Signup() {
   const [signupInfo, setSignupInfo] = useState({
-    username: "",
+    email: "",
     password: ""
   });
+
+  const dispatch = useDispatch();
 
   const [result, setResult] = useState({result:null});
 
@@ -16,7 +21,7 @@ function Signup() {
   const changeUsername = e => {
     setSignupInfo({
       ...signupInfo,
-      username: e.target.value
+      email: e.target.value
     });
   };
 
@@ -26,9 +31,9 @@ function Signup() {
   };
 
   const submit = () => {
-    if (checkValidity(signupInfo.username) && signupInfo.password.length > 6){
-        //do auth from redux
-
+    if (checkValidity(signupInfo.email) && signupInfo.password.length >= 6){
+        dispatch(auth(signupInfo, true));
+        
         setResult({
             ...result,
             result: (<div>
@@ -59,7 +64,7 @@ function Signup() {
     <div >
       <input
         onChange={changeUsername}
-        value={signupInfo.username}
+        value={signupInfo.email}
         id="usernameInput"
         placeholder="Username (Email)"
       />
@@ -74,6 +79,18 @@ function Signup() {
       {result.result}
     </div>
   );
+}
+
+const mapStateToProps = (state) => {
+  return {
+      
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      auth: () => dispatch(actions.auth())
+  }
 }
 
 export default Signup;

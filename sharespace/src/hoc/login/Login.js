@@ -5,11 +5,18 @@ import "./Login.css";
 //import Home from "../home/Home"
 import Signup from "../signup/Signup";
 
+import {connect, useDispatch} from "react-redux";
+import {withRouter} from "react-router-dom";
+import * as actions from "../../store/actions";
+import {auth} from "../../store/actions";
+
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
-    username: "",
+    email: "",
     password: ""
   });
+
+  const dispatch = useDispatch();
 
   const [isLogged, setIsLogged] = useState(false);
 
@@ -18,17 +25,15 @@ function Login() {
   const changeUsername = e => {
     setLoginInfo({
       ...loginInfo,
-      username: e.target.value
+      email: e.target.value
     });
   };
 
   const submit = () => {
-    const userInformation = {
-      ...loginInfo
-    };
-    if ("apple" === JSON.stringify(userInformation)) {
-      setIsLogged(true);
-    }
+    // const userInformation = {
+    //   ...loginInfo
+    // };
+    dispatch(auth(loginInfo, false));
   };
 
   const changePassword = e => {
@@ -45,20 +50,11 @@ function Login() {
     })
   }
 
-//   const logOut = () => {
-//     setIsLogged(false);
-//     setLoginInfo({
-//       ...loginInfo,
-//       username: "",
-//       password: ""
-//     });
-//   };
-
   return (
     <div className="outerContainer">
       <input
         onChange={changeUsername}
-        value={loginInfo.username}
+        value={loginInfo.email}
         id="usernameInput"
         placeholder="Username"
       />

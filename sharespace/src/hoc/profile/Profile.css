@@ -53,3 +53,11 @@ button {
     margin: 0%;
 }
 
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    background-color: #726078;
+    border: 1px 0px black;
+    width: 30%;
+    align-content: center;
+}

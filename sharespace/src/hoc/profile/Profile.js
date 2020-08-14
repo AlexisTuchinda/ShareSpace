@@ -4,48 +4,80 @@ import Card from "../../components/Cards/Card";
 import "../home/Home.css";
 import showCards from "../../components/showCards";
 
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
+import * as actions from "../../store/actions";
+import firebase from "firebase";
+
 class Profile extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            username: props.username,
-            name: props.name,
-            bio: props.bio,
-            followers: props.followers,
-            following: props.following,
-            posts: props.posts, //stored in server
-            newPosts: [],
-            upvotes: props.upvotes,
+            name: "TEST",
+            bio: "HOLa"
         }
 
-        this.post = this.post.bind(this);
     }
+
+    componentDidMount() {
+        this.props.getUserData(this.props.userID);
+    }
+
 
     pressed(e){
         // this.setState({username: ""})
     }
 
-    post(){ //append new posts to overall App storage 
-        let newPost = <Card username= {this.state.username} title = {"TEST"} votes = {0} isAuthenticated = {true} />;
-        this.setState({newPosts:[...this.state.newPosts, newPost]});
-        //this.setState({posts:[...this.state.posts, newPost]})
+    data(){ 
+        // let newPost = <Card username= {this.state.username} title = {"TEST"} votes = {0} isAuthenticated = {true} />;
+        // this.setState({newPosts:[...this.state.newPosts, newPost]});
+
+        if (this.props.followers && this.props.following && this.props.posts){
+            return (
+                <div>
+                    <h5>Followers: {this.props.followers}, Following: {this.props.following}, Posts: {this.props.posts.length}</h5>
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <h5>Data Loading...</h5>
+                </div>
+            )
+        }
     }
 
     render(){
         //change showCards.card to this.state.posts
         return(<div>
             <div>
-                POST NEW STUFFS
                 <button onClick = {this.post}>POST</button>
-            </div>
+            </div> 
             <div>
-                {showCards({cards: this.state.newPosts})}
+                {/*showCards({cards: this.state.newPosts})*/}
             </div>
-            <div>
-                SIDE COLUMN FOR FOLLOWERS, FOLLOWING, USERNAME, BIO, ETC.
+            <div className = "userInfo">
+        <h2>{this.state.username}</h2>
+        <h4>{this.state.name}</h4>
+        {this.data()}
+        <h5>{this.state.bio}</h5>
             </div>
         </div>)
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        userData: state.main.userData,
+        userID: state.main.userID
+        //isAuthenticated: state.main.isAutheticated
+    }
+}
 
-export default Profile;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        //showCards: () => dispatch(actions.showCards())
+        getUserData: () => dispatch(actions.getUserData())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Profile);

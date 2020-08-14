@@ -10,7 +10,7 @@ class Home extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            username: "Dad",
+            //username: "Dad",
             isAuthenticated: true,
             /*
             existingCards: [<Card username= {props.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {props.isAuthenticated} />,
@@ -20,12 +20,11 @@ class Home extends React.Component{
     }
 
     componentDidMount(){
-        this.props.test();
+        //this.props.test();
     }
 
     render(){
         return(<div>
-            <h2>{this.props.message}</h2>
         </div>)
     }
 }
@@ -33,15 +32,19 @@ class Home extends React.Component{
 const mapStateToProps = (state) => {
     return {
         userData: state.main.userData,
+ /*
+        User data should contain email, account username, account password
+ */
+
         isAutheticated: state.main.isAuthenticated,
         loggedIn: state.main.loggedIn,
-        message: state.main.message
+        //message: state.main.message
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        test: () => dispatch(actions.test()),
+        //test: () => dispatch(actions.test()),
         logout: () => dispatch(actions.logout())
     }
 }
