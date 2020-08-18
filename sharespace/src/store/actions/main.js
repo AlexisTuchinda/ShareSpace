@@ -22,7 +22,7 @@ export const getUserData = (userId) => {
         await x.on('value', async (snapshot) => {
             userData= snapshot.val();
             if (userData) {
-                await dispatch({type: actionTypes.GET_USER_DATA, userData});
+                await dispatch({type: actionTypes.GET_USER_DATA, userData: userData});
             }else{
                 console.log("Failed to get Data");
             }
@@ -49,20 +49,13 @@ export const addData = (userId, data) => {
 
 export const authSignupStart = () => {return{type:actionTypes.AUTH_SIGNUP_START}}
 
-export const authSignupSuccess = (userData, isNew) => {
+export const authSignupSuccess = (userData, userId) => {
     console.log(userData);
-    if (isNew){
-        return dispatch => {
-            dispatch({type: actionTypes.AUTH_SIGNUP_SUCCESS,
-            userData: userData});
-        };
-    }
-    else{
-        return dispatch => {
-            dispatch({type: actionTypes.AUTH_SIGNUP_SUCCESS,
-            userData: userData});
-        };
-    }
+    return dispatch => {
+        dispatch({type: actionTypes.AUTH_SIGNUP_SUCCESS,
+        userData: userData,
+    userId: userId});
+    };
 }
 
 export const authSignupFail = (error) => {
@@ -83,6 +76,7 @@ export const auth = (formData, isNewSignUp) => {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(response => {
                     var userId = firebase.auth().currentUser.uid;
+                    //formData.userID = userId;
                     var userEmail = firebase.auth().currentUser.email;
 
                     firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
@@ -94,10 +88,10 @@ export const auth = (formData, isNewSignUp) => {
                                 if (snapshot.val()) {
                                     let userData= snapshot.val() || null;
                                     // console.log('ACTIONS auth snapshot.val()', snapshot.val())
-                                    dispatch(authSignupSuccess(userData, isNewSignUp));
+                                    dispatch(authSignupSuccess(userData, userId));
                                     return userData
                                 } else {
-                                    dispatch(authSignupSuccess('pending', isNewSignUp));
+                                    dispatch(authSignupSuccess('pending', userId));
                                     return
                                 }
                             })
@@ -117,11 +111,11 @@ export const auth = (formData, isNewSignUp) => {
                 var userEmail = await firebase.auth().currentUser.email;
                 await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
                 .then(async (idToken) => {
-                    const expiryDate = await new Date (new Date ().getTime() + 36000);
+                    //const expiryDate = await new Date (new Date ().getTime() + 36000);
                     let userRef = await firebase.database().ref('users/'+ userId);
                     await userRef.on('value', async (snapshot) => {
-                        let userData= {...snapshot.val().userData};
-                        await dispatch(authSignupSuccess(userData, isNewSignUp));
+                        let userData= snapshot.val();
+                        await dispatch(authSignupSuccess(userData, userId));
                         return userData;
                     });
                     await localStorage.getItem('token', idToken);

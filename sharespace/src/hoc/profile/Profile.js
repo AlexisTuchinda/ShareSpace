@@ -14,13 +14,15 @@ class Profile extends React.Component{
         super(props);
         this.state = {
             name: "TEST",
-            bio: "HOLa"
+            bio: "HOLa",
         }
 
     }
 
     componentDidMount() {
-        this.props.getUserData(this.props.userID);
+        console.log(this.props.userId);
+        this.props.getUserData(this.props.userId);
+        console.log(this.props.userData);
     }
 
 
@@ -31,19 +33,20 @@ class Profile extends React.Component{
     data(){ 
         // let newPost = <Card username= {this.state.username} title = {"TEST"} votes = {0} isAuthenticated = {true} />;
         // this.setState({newPosts:[...this.state.newPosts, newPost]});
-
-        if (this.props.followers && this.props.following && this.props.posts){
-            return (
-                <div>
-                    <h5>Followers: {this.props.followers}, Following: {this.props.following}, Posts: {this.props.posts.length}</h5>
-                </div>
-            )
-        }else{
-            return(
-                <div>
-                    <h5>Data Loading...</h5>
-                </div>
-            )
+        if (this.props.userData){
+            if (this.props.userData.followers != null && this.props.userData.following != null && this.props.userData.posts){
+                return (
+                    <div>
+                        <h5>Followers: {this.props.userData.followers}, Following: {this.props.userData.following}, Posts: {this.props.userData.posts.length}</h5>
+                    </div>
+                )
+            }else{
+                return(
+                    <div>
+                        <h5>Data Loading...</h5>
+                    </div>
+                )
+            }
         }
     }
 
@@ -68,7 +71,7 @@ class Profile extends React.Component{
 const mapStateToProps = (state) => {
     return {
         userData: state.main.userData,
-        userID: state.main.userID
+        userId: state.main.userId
         //isAuthenticated: state.main.isAutheticated
     }
 }
@@ -76,7 +79,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         //showCards: () => dispatch(actions.showCards())
-        getUserData: () => dispatch(actions.getUserData())
+        getUserData: (userId) => dispatch(actions.getUserData(userId))
     }
 }
 

@@ -7,7 +7,7 @@ const initialState = {
     error: "",
     loggedIn: false,
     message: "",
-    userID: null
+    userId: null
 }
 
 const startSignup = (state, action) => {
@@ -25,7 +25,7 @@ const signupSuccess = (state, action) => {
         error: null,
         isAutheticated: true,
         loggedIn: true,
-        userID: action.userID
+        userId: action.userId
     });
 }
 
