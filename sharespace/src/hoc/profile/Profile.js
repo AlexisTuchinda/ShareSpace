@@ -37,7 +37,7 @@ class Profile extends React.Component{
             if (this.props.userData.followers != null && this.props.userData.following != null && this.props.userData.posts){
                 return (
                     <div>
-                        <h5>Followers: {this.props.userData.followers}, Following: {this.props.userData.following}, Posts: {this.props.userData.posts.length}</h5>
+                        <h5>Followers: {this.props.userData.followers}, Following: {this.props.userData.following}, Posts: {this.props.userData.posts!="none" ? this.props.userData.posts.length : 0}</h5>
                     </div>
                 )
             }else{

@@ -159,3 +159,8 @@ export const test = () => {
         dispatch({type: actionTypes.TEST, word});
     };
 }
+
+export const addCard = (userId, card) =>{
+    //create timestamp to id posts, using newDate
+    firebase.database().ref("users/"+userId+"/posts/"+card.id)
+}

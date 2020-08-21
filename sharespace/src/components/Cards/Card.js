@@ -21,6 +21,8 @@ class Card extends React.Component {
         };
     }
 
+    //add tags for search
+
     render() {
         return (
             <div class = "card"> 

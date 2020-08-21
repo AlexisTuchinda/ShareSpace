@@ -63,6 +63,12 @@ const getUserData = (state, action) => {
     })
 };
 
+const addCard = (state, action) => {
+    return updateObject(state, {
+        userData: action.userData
+    })
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case(actionTypes.AUTH_SIGNUP_START): return startSignup(state, action);
@@ -73,6 +79,7 @@ const reducer = (state = initialState, action) => {
         case(actionTypes.TEST): return test(state, action);
         case(actionTypes.SHOW_CARDS): return showCards(state, action);
         case(actionTypes.GET_USER_DATA): return getUserData(state, action);
+        case(actionTypes.ADD_CURRENT): return addCard(state, action);
         default: return state;
     }
 }
