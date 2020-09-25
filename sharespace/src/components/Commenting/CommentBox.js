@@ -2,14 +2,19 @@ import React from "react";
 import Comment from "./Comment";
 import "./CommentBox.css";
 
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
+import * as actions from "../../store/actions";
+
 class CommentBox extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            comments: [<Comment username = {"TEST"} value = {"COMMENT"}/>],
+            comments: props.comments,
             username: props.username,
             commentInput: "",
-            showComments: false
+            showComments: false,
+            cardId: props.cardId
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -18,14 +23,15 @@ class CommentBox extends React.Component{
     }
 
     createNewComment(){
-        this.setState({comments:[...this.state.comments, <Comment username = {this.state.username} value = {this.state.commentInput}/>]}); 
+        this.props.updateCard(this.props.userId, this.state.cardId, {username: this.state.username, value: this.state.commentInput})
     }
 
     displayComments(){
-        if (this.state.showComments){
+        console.log("In display comments");
+        if (this.state.showComments && this.state.comments){
             return(
                 <div class = "commentColumn">
-                    {this.state.comments.map((comment, index) => (<li key = {index}>{comment}</li>))}
+                    {this.state.comments.map((comment, index) => (<li key = {index}><Comment username = {comment.username} value = {comment.value}/></li>))}
                 </div>
             )
         }
@@ -61,4 +67,18 @@ class CommentBox extends React.Component{
     }
 }
 
-export default CommentBox;
+const mapStateToProps = (state) => {
+    return {
+        userId: state.main.userId
+        //isAuthenticated: state.main.isAutheticated
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        //showCards: () => dispatch(actions.showCards())
+        updateCard: (userId, cardId, increment) => dispatch(actions.updateCard(userId, cardId, increment))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (CommentBox);

@@ -81,16 +81,4 @@ function Signup() {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-      
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-      auth: () => dispatch(actions.auth())
-  }
-}
-
 export default Signup;

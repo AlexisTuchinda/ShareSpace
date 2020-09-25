@@ -1,6 +1,5 @@
 import React from "react";
 import Card from "../../components/Cards/Card";
-import showCards from "../../components/showCards";
 
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
@@ -11,7 +10,6 @@ class Home extends React.Component{
         super(props);
         this.state = {
             //username: "Dad",
-            isAuthenticated: true,
             /*
             existingCards: [<Card username= {props.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {props.isAuthenticated} />,
             <Card username= {props.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {props.isAuthenticated} />] //connect to overall App storage thing
@@ -20,11 +18,30 @@ class Home extends React.Component{
     }
 
     componentDidMount(){
-        //this.props.test();
+        
+        //this.setState({cards: this.props.getCurrentCards()});
+        console.log("in Home did_mount");
+        if (this.props.loggedIn){
+            this.props.getCurrentCards();
+        }
+    }
+
+    showCards(){
+        if (this.props.homepage){
+            console.log("POSTS: ", this.props.homepage)
+            console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
+            return Object.values(this.props.homepage).map((post, index) => {
+                console.log(index, post);
+                return <Card key = {index} username = {post.owner} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
+            })
+        } else{
+            return <div>No Posts! :(</div>
+        }
     }
 
     render(){
         return(<div>
+            <ul>{this.showCards()}</ul>
         </div>)
     }
 }
@@ -35,7 +52,7 @@ const mapStateToProps = (state) => {
  /*
         User data should contain email, account username, account password
  */
-
+        homepage: state.main.homepage,
         isAutheticated: state.main.isAuthenticated,
         loggedIn: state.main.loggedIn,
         //message: state.main.message
@@ -45,7 +62,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         //test: () => dispatch(actions.test()),
-        logout: () => dispatch(actions.logout())
+        //logout: () => dispatch(actions.logout())
+        getCurrentCards: () => dispatch(actions.getCurrentCards())
     }
 }
 

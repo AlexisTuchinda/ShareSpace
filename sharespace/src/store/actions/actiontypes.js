@@ -27,8 +27,10 @@ export const CLEAR_CURRENTS = 'CLEAR_CURRENTS';
 export const PICK_NEW_RANDOM = 'PICK_NEW_RANDOM';
 export const CHOOSE_CARD = 'CHOOSE_CARD';
 export const UPDATE_CURRENT_CARDS = 'UPDATE_CURRENT_CARDS';
+export const UPDATE_CARD = "UPDATE_CARD";
+
+export const GET_USER_CARDS = "GET_USER_CARDS";
 export const GET_CURRENT_CARDS = 'GET_CURRENT_CARDS';
-export const SHOW_CARDS = 'SHOW_CARDS';
 
 //other
 export const RESET_ALL = "RESET_ALL";

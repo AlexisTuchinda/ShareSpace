@@ -72,7 +72,7 @@ export const auth = (formData, isNewSignUp) => {
         if (isNewSignUp){
             formData.followers = 0;
             formData.following = 0;
-            formData.posts = "none"; //objects containing card data
+            formData.posts = []; //objects containing card data
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(response => {
                     var userId = firebase.auth().currentUser.uid;
@@ -116,6 +116,7 @@ export const auth = (formData, isNewSignUp) => {
                     await userRef.on('value', async (snapshot) => {
                         let userData= snapshot.val();
                         await dispatch(authSignupSuccess(userData, userId));
+                        await dispatch(getCards(userId));
                         return userData;
                     });
                     await localStorage.getItem('token', idToken);
@@ -140,27 +141,95 @@ export const logout = () => {
 
 }
 
-export const showCards = (cards) => {
-    // return <div>{cards.map((card, index) => 
-    // <ul key = {index}>{card}</ul>)}</div>
-
-    return <div>{cards.map((card, index) => 
-    <ul key = {index}>
-        <Card title = {card.title} username = {card.username} image = {card.image} description = {card.description}/>
-    </ul>)}</div>
+export const getCurrentCards = () =>{
+    let x, users;
+    let peeps = [];
+    return (async dispatch => {
+        x = await firebase.database().ref('users/');
+        await x.on('value', async (snapshot) => {
+            users = snapshot.val();
+            console.log(users);
+            if (users){
+                Object.values(users).map((user) => {
+                    console.log("Current Card user: ", user);
+                    Object.values(user.posts).map((post) => {
+                        console.log("IN POST:::: ", post)
+                        peeps.push(post); 
+                    })
+                })
+            }
+            console.log(peeps);
+            await dispatch({type: actionTypes.GET_CURRENT_CARDS, homepage: peeps});
+        })
+    })
 }
 
-export const test = () => {
-    let word = "Panda expresssssssss"
-    firebase.database().ref("users/").set({
-        randomness: word
-    });
-    return dispatch => {
-        dispatch({type: actionTypes.TEST, word});
-    };
+export const getCards = (userId) => {
+    let posts, x;
+    return async dispatch => {
+        x = await firebase.database().ref('users/'+ userId+"/posts");
+        await x.on('value', async (snapshot) => {
+            posts= snapshot.val();
+            if (posts) {
+                await dispatch({type: actionTypes.GET_USER_CARDS, posts: posts});
+                console.log(posts);
+            }else{
+                console.log("Failed to get Posts");
+            }
+        });
+    }
 }
 
 export const addCard = (userId, card) =>{
-    //create timestamp to id posts, using newDate
-    firebase.database().ref("users/"+userId+"/posts/"+card.id)
-}
+    card.id =  Math.floor((Date.now()/1000 - 1530231260 ));
+    card.owner = userId;
+    
+    let updates = {};
+    updates["users/"+userId+'/posts/' + card.id] = card;
+    
+    firebase.database().ref().update(updates);
+
+    return dispatch => {
+        dispatch(getCards(userId))
+    };
+    
+   }
+
+export const updateCard = (userId, cardId, increment) =>{
+    let updates = {};
+    let card;
+    return async dispatch => {
+        console.log(userId, cardId)
+        let cardRef = await firebase.database().ref("users/"+userId+'/posts/' + cardId);
+        //console.log("CARD REF: ", cardRef);
+        await cardRef.on('value', (snapshot) => {
+            console.log(snapshot.val());
+            if (snapshot.val()) {
+                card= snapshot.val()===null ? null : snapshot.val();
+                console.log("CARD: ", card);
+                if (card && increment!==null){
+                    card.votes = card.votes+1;
+                    if (card.voters){
+                        card.voters.push(userId);
+                    }else{
+                        card.voters = [userId];
+                    }
+                } else if (increment){
+                    if (card.comments){
+                        card.comments.push(increment);
+                    }
+                    else{
+                        card.comments = [increment];
+                    }
+                }
+            }
+            console.log("CARD 2: ", card);
+            updates["users/"+userId+'/posts/' + cardId] = card;
+        })    
+            //console.log("Updates: ", updates);
+            await firebase.database().ref().update(updates);
+
+            dispatch(getCards(userId));
+        }
+        
+    };

@@ -11,28 +11,36 @@ class Card extends React.Component {
     constructor (props){
         super(props);
         this.state = {
+            //data: props.post,
             title: props.title,
-            username: props.username,
+            username: props.email,
             image: props.image, //link
+            id: props.id,
             description: props.description,
             isAuthenticated: this.props.loggedIn,
-            voting: <Vote currentUser = {props.username}/>,
-            commenting: <CommentBox username = {props.username}/> 
+            votes: props.votes,
+            voting: null,
+            commenting: null,
+            owner: props.owner
         };
     }
 
     //add tags for search
 
+    componentDidMount(){
+        this.setState({commenting: <CommentBox username = {this.props.userData.email} comments = {this.state.comments} cardId = {this.state.id}/>, voting: <Vote currentUser = {this.props.userData.email} votes = {this.state.votes} voters = {this.state.voters} id = {this.state.id} owner = {this.state.owner}/> });
+    }
+
     render() {
         return (
-            <div class = "card"> 
+            <div className = "card"> 
                 <div>
                     <h1>{this.state.title} by {this.state.username}</h1>
                 </div>
                 <div>
                     <img src = {this.state.image}/>
                 </div>
-                <h4><b>{this.state.isAuthenticated ? this.state.voting : "LOG IN TO VOTE"}</b></h4>
+                <h4><b>{this.state.isAuthenticated  ? this.state.voting : "LOG IN TO VOTE"}</b></h4>
                 <h4><b>{this.state.isAuthenticated ? this.state.commenting : "LOG IN TO COMMENT"}</b></h4>
             </div>
         );
@@ -43,6 +51,7 @@ const mapStateToProps = (state) => {
     return {
         loggedIn: state.main.loggedIn,
         //message: state.main.message
+        userData: state.main.userData
     }
 }
 

@@ -4,8 +4,11 @@ export {
     authSignupSuccess,
     authSignupFail,
     logout,
-    showCards,
+    getCards,
     addData,
-    getUserData
+    getUserData,
+    addCard,
+    updateCard,
+    getCurrentCards
     //test
 } from "./main"

@@ -1,6 +1,6 @@
 
 .comment {
-    border: dashed black;
     border-width: 1px;
     text-align: left;
+    margin: 10px;
 }

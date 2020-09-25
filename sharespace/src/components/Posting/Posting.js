@@ -2,74 +2,88 @@ import React from "react";
 import "./Posting.css";
 import {useState} from "react";
 
-import {connect, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {withRouter} from "react-router-dom";
-import * as actions from "../../store/actions";
+import {addCard} from "../../store/actions/main";
+
+function mapStateToProps(state){
+    return {
+        userId: state.main.userId
+    }
+}
 
 
-function Posting () {
-    const [addOn, setAddOn] = ({
+
+function Posting (props) {
+    const [addOn, setAddOn] = useState({
         description: "",
         title: "",
-        image: "" //link only
+        image: "",
+        votes: 0,
+        voters: [],
+        comments:[]
     })
-};
 
-const dispatch = useDispatch();
 
-const [editAddOn, startPost] = useState(false);
+    const dispatch = useDispatch();
 
-const changeDescription = e => {
+    //const [editAddOn, startPost] = useState(false);
+
+    const changeDescription = e => {
+        setAddOn({
+        ...addOn,
+        description: e.target.value
+        });
+    };
+
+    const changeTitle = e => {
+        setAddOn({
+            ...addOn,
+            title: e.target.value
+        });
+    };
+
+    const changeImage = e => {
     setAddOn({
-      ...addOn,
-      description: e.target.value
+        ...addOn,
+        image: e.target.value
     });
-  };
+    };
 
-const changeTitle = e => {
-setAddOn({
-    ...addOn,
-    title: e.target.value
-});
-};
+    const submit = () =>{
+        dispatch(addCard(props.userId, addOn));
+        //console.log(props.userData);
+    };
 
-const changeImage = e => {
-setAddOn({
-    ...addOn,
-    image: e.target.value
-});
-};
+console.log("In Posting...");
 
-const submit = () =>{
-    dispatch(addCard(addOn));
-};
+    return (
+        <div>
+            <div className = {"inputs"}>
+                <input
+                onChange={changeTitle}
+                value={addOn.title}
+                id="titleInput"
+                placeholder = "Title"
+                />
+                <input
+                onChange={changeImage}
+                value={addOn.image}
+                id="imageInput"
+                placeholder = "Image URL"
+                />
+                <input
+                onChange={changeDescription}
+                value={addOn.description}
+                id="descriptionInput"
+                placeholder="Image Description"
+                />
+                <button onClick={submit}>Submit Post</button>
+            </div>
+        </div>
+    );
 
-return (
-    <div>
-        <button onClick = {() => {startPost(true)}}>Create Post</button>
-        {(editAddOn)? <div>
-            <input
-            onChange={changeTitle}
-            value={addOn.title}
-            id="titleInput"
-            placeholder = "Title"
-            />
-            <input
-            onChange={changeImage}
-            value={addOn.image}
-            id="imageInput"
-            placeholder = "Image URL"
-            />
-            <input
-            onChange={changeDescription}
-            value={addOn.description}
-            id="descriptionInput"
-            placeholder="Image Description"
-            />
-            <button onClick={submit}>Submit Post</button>
-        </div> : null}
-    </div>
-);
+        }
 
 
-export default Posting;
+export default connect(mapStateToProps) (Posting);

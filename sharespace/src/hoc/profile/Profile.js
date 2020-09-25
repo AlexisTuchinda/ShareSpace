@@ -1,34 +1,37 @@
 import React from "react";
 import "./Profile.css";
 import Card from "../../components/Cards/Card";
-import "../home/Home.css";
-import showCards from "../../components/showCards";
 
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import * as actions from "../../store/actions";
-import firebase from "firebase";
+import Posting from "../../components/Posting/Posting";
 
 class Profile extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            name: "TEST",
-            bio: "HOLa",
+            name: "NAME HERE",
+            bio: "BIO HERE",
+            newPost: null
         }
 
     }
 
     componentDidMount() {
-        console.log(this.props.userId);
         this.props.getUserData(this.props.userId);
-        console.log(this.props.userData);
+        this.props.getCards(this.props.userId);
     }
 
-
-    pressed(e){
-        // this.setState({username: ""})
+    displayPosts(){
+        if (this.props.posts){
+            console.log(this.props.posts)
+            return Object.values(this.props.posts).map((post) => {
+                return <Card id = {post.id} title = {post.title} username= {this.props.userData.email} image = {post.image} description = {post.description} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
+            })
+        }
     }
+
 
     data(){ 
         // let newPost = <Card username= {this.state.username} title = {"TEST"} votes = {0} isAuthenticated = {true} />;
@@ -53,25 +56,31 @@ class Profile extends React.Component{
     render(){
         //change showCards.card to this.state.posts
         return(<div>
-            <div>
-                <button onClick = {this.post}>POST</button>
-            </div> 
-            <div>
-                {/*showCards({cards: this.state.newPosts})*/}
-            </div>
-            <div className = "userInfo">
+            {/*this.state.newPost ? <div><Posting/></div> : <div><button onClick = {() => }></div>*/}
+            <div className = {"userInfo"}>
         <h2>{this.state.username}</h2>
+        <h3>{(this.props.userData) ? this.props.userData.email : ":)"}</h3>
         <h4>{this.state.name}</h4>
         {this.data()}
         <h5>{this.state.bio}</h5>
             </div>
-        </div>)
+        
+            <div>
+                <button onClick = {() => {this.setState({newPost: <Posting/>})}}>NEW POST</button>
+                {this.state.newPost || null}
+            </div>
+            <div className = {"container"}>
+                {this.displayPosts()}
+            </div>
+            </div>
+            )
     }
 }
 const mapStateToProps = (state) => {
     return {
         userData: state.main.userData,
-        userId: state.main.userId
+        userId: state.main.userId,
+        posts: state.main.posts
         //isAuthenticated: state.main.isAutheticated
     }
 }
@@ -79,7 +88,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         //showCards: () => dispatch(actions.showCards())
-        getUserData: (userId) => dispatch(actions.getUserData(userId))
+        getUserData: (userId) => dispatch(actions.getUserData(userId)),
+        getCards: (userId) => dispatch(actions.getCards(userId))
     }
 }
 

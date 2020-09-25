@@ -1,6 +1,4 @@
 import React from "react";
-import Card from "../../components/Cards/Card";
-import showCards from "../../components/showCards";
 import Profile from '../../hoc/profile/Profile'
 import Home from '../../hoc/home/Home'
 import Login from '../../hoc/login/Login'

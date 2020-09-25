@@ -7,7 +7,9 @@ const initialState = {
     error: "",
     loggedIn: false,
     message: "",
-    userId: null
+    userId: null,
+    posts: [],
+    homepage: []
 }
 
 const startSignup = (state, action) => {
@@ -55,7 +57,7 @@ const test =(state, action) => {
 
 const auth = (state, action) => {return state};
 
-const showCards = (state, action) => {return state};
+//const showCards = (state, action) => {return state};
 
 const getUserData = (state, action) => {
     return updateObject(state, {
@@ -63,9 +65,24 @@ const getUserData = (state, action) => {
     })
 };
 
-const addCard = (state, action) => {
+const getCards = (state, action) => {
     return updateObject(state, {
-        userData: action.userData
+        posts: action.posts
+    })
+};
+
+const addCard = (state, action) => {
+    return state
+}
+
+const updateCard = (state, action) => {
+    return state
+}
+
+const getCurrentCards = (state, action) => {
+    console.log("getCurrentCards HOMEPAGE: ", action.homepage);
+    return updateObject(state, {
+        homepage: action.homepage
     })
 }
 
@@ -77,9 +94,11 @@ const reducer = (state = initialState, action) => {
         case(actionTypes.AUTH_LOGOUT): return logout(state, action);
         case(actionTypes.AUTH): return auth(state, action);
         case(actionTypes.TEST): return test(state, action);
-        case(actionTypes.SHOW_CARDS): return showCards(state, action);
         case(actionTypes.GET_USER_DATA): return getUserData(state, action);
-        case(actionTypes.ADD_CURRENT): return addCard(state, action);
+        case(actionTypes.GET_USER_CARDS): return getCards(state, action);
+        case(actionTypes.ADD_CARD_TO_CURRENTS): return addCard(state, action);
+        case(actionTypes.UPDATE_CARD): return updateCard(state, action);
+        case(actionTypes.GET_CURRENT_CARDS): return getCurrentCards(state, action);
         default: return state;
     }
 }
