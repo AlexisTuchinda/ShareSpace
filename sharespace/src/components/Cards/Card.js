@@ -19,6 +19,7 @@ class Card extends React.Component {
             description: props.description,
             isAuthenticated: this.props.loggedIn,
             votes: props.votes,
+            voters: props.voters,
             voting: null,
             commenting: null,
             owner: props.owner
@@ -28,12 +29,15 @@ class Card extends React.Component {
     //add tags for search
 
     componentDidMount(){
-        this.setState({commenting: <CommentBox username = {this.props.userData.email} comments = {this.state.comments} cardId = {this.state.id}/>, voting: <Vote currentUser = {this.props.userData.email} votes = {this.state.votes} voters = {this.state.voters} id = {this.state.id} owner = {this.state.owner}/> });
+        //console.log("didmount votes: ", this.state.votes);
+        this.setState({commenting: <CommentBox username = {this.props.userData.email} comments = {this.state.comments} cardId = {this.state.id}/>, voting: <Vote currentUser = {this.props.userId} votes = {this.state.votes} voters = {this.state.voters} id = {this.state.id} owner = {this.state.owner}/> });
     }
 
     render() {
+        
         return (
             <div className = "card"> 
+            {this.state.voters? <h1>WORKED</h1>:<h1>:(</h1>}
                 <div>
                     <h1>{this.state.title} by {this.state.username}</h1>
                 </div>
@@ -51,7 +55,8 @@ const mapStateToProps = (state) => {
     return {
         loggedIn: state.main.loggedIn,
         //message: state.main.message
-        userData: state.main.userData
+        userData: state.main.userData,
+        userId: state.main.userId
     }
 }
 

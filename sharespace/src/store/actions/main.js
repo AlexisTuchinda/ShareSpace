@@ -171,8 +171,9 @@ export const getCards = (userId) => {
         await x.on('value', async (snapshot) => {
             posts= snapshot.val();
             if (posts) {
-                await dispatch({type: actionTypes.GET_USER_CARDS, posts: posts});
-                console.log(posts);
+                await dispatch({type: actionTypes.GET_USER_CARDS, posts});
+                // console.log("getCards (actions) return posts: ", posts);
+                // console.log("getCards (actions) return voters: ", posts.owner);
             }else{
                 console.log("Failed to get Posts");
             }
@@ -207,7 +208,7 @@ export const updateCard = (userId, cardId, increment) =>{
             if (snapshot.val()) {
                 card= snapshot.val()===null ? null : snapshot.val();
                 console.log("CARD: ", card);
-                if (card && increment!==null){
+                if (card && increment===null){
                     card.votes = card.votes+1;
                     if (card.voters){
                         card.voters.push(userId);
@@ -223,7 +224,6 @@ export const updateCard = (userId, cardId, increment) =>{
                     }
                 }
             }
-            console.log("CARD 2: ", card);
             updates["users/"+userId+'/posts/' + cardId] = card;
         })    
             //console.log("Updates: ", updates);

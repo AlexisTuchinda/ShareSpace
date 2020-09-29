@@ -25,8 +25,9 @@ class Profile extends React.Component{
 
     displayPosts(){
         if (this.props.posts){
-            console.log(this.props.posts)
+            console.log(this.props.posts);
             return Object.values(this.props.posts).map((post) => {
+                //console.log("displayPosts: ", post.voters);
                 return <Card id = {post.id} title = {post.title} username= {this.props.userData.email} image = {post.image} description = {post.description} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
             })
         }

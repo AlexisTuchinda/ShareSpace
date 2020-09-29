@@ -60,12 +60,14 @@ const auth = (state, action) => {return state};
 //const showCards = (state, action) => {return state};
 
 const getUserData = (state, action) => {
+    //console.log("getUserData return :", action.userData)
     return updateObject(state, {
         userData: action.userData
     })
 };
 
 const getCards = (state, action) => {
+    //console.log("getCards (reducer) return posts: ", action.posts);
     return updateObject(state, {
         posts: action.posts
     })

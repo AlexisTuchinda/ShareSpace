@@ -18,34 +18,27 @@ class Vote extends React.Component{
         this.checkUser = this.checkUser.bind(this);
     }
 
+    componentDidMount(){
+        console.log(this.state.voters);
+    }
+
     checkUser(){
-        //console.log("userId: "+this.props.userId, "cardId: "+ this.state.id);
-
-            // FIX
-        // if (!this.state.voters || !this.state.voters.map((items) => {return items === this.props.userId})){
-        //     return(
-        //         <div>
-        //             {/*<button onClick = {() => this.setState({ votes: this.state.votes + 1 }, this.setState({voters:[...this.state.voters, this.state.currentUser]}))}>VOTE</button>*/}
-        //             <button onClick = {() => this.props.updateCard(this.state.owner, this.state.id, null)}>VOTE</button>
-        //         </div>
-        //     )
-        // } else{
-        //     return(
-        //     <div>
-        //         <h5><i>You have already voted on this artwork.</i></h5>
-        //         </div>
-        //     )
-        // }
-
-        if (this.state.voters){
+        if ((this.state.voters && !(Object.values(this.state.voters).includes(this.state.currentUser))) || this.state.votes === 0){
+            //console.log("checkUser: ", Object.values(this.state.voters).includes(this.props.userId), this.props.userId);
             return(
                 <div>
-                {/*<button onClick = {() => this.setState({ votes: this.state.votes + 1 }, this.setState({voters:[...this.state.voters, this.state.currentUser]}))}>VOTE</button>*/}
                 <button onClick = {() => this.props.updateCard(this.state.owner, this.state.id, null)}>VOTE</button>
                 </div>
                 )
             }
-        else if (this.state.currentUser in Object.values(this.state.voters)){
+        else if (!this.state.voters){
+            return(
+                <div>
+                       <h5><i>Voters have not loaded.</i></h5>
+                        </div>         
+            )
+        }
+        else{
             return(
                 <div>
                        <h5><i>You have already voted on this artwork.</i></h5>
@@ -55,9 +48,10 @@ class Vote extends React.Component{
     }
 
     render(){
-        console.log(this.state.votes)
+        console.log(this.state.voters);
         return(
             <div>
+                {this.state.voters? <h1>WORKED</h1>:<h1>:(</h1>}
                 <ul>{this.state.votes}</ul>
                 {this.checkUser()}
             </div>
