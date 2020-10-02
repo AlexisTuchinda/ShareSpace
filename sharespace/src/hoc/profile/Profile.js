@@ -11,7 +11,6 @@ class Profile extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            name: "NAME HERE",
             bio: "BIO HERE",
             newPost: null
         }
@@ -28,7 +27,7 @@ class Profile extends React.Component{
             console.log(this.props.posts);
             return Object.values(this.props.posts).map((post) => {
                 //console.log("displayPosts: ", post.voters);
-                return <Card id = {post.id} title = {post.title} username= {this.props.userData.email} image = {post.image} description = {post.description} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
+                return <Card id = {post.id} title = {post.title} username= {post.name} image = {post.image} description = {post.description} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
             })
         }
     }
@@ -37,11 +36,14 @@ class Profile extends React.Component{
     data(){ 
         // let newPost = <Card username= {this.state.username} title = {"TEST"} votes = {0} isAuthenticated = {true} />;
         // this.setState({newPosts:[...this.state.newPosts, newPost]});
+        console.log(this.props.posts);
         if (this.props.userData){
-            if (this.props.userData.followers != null && this.props.userData.following != null && this.props.userData.posts){
+            if (this.props.userData.followers != null && this.props.userData.following != null && this.props.posts){
                 return (
                     <div>
-                        <h5>Followers: {this.props.userData.followers}, Following: {this.props.userData.following}, Posts: {this.props.userData.posts!="none" ? this.props.userData.posts.length : 0}</h5>
+                        <h5>Followers: {this.props.userData.followers}</h5>
+                        <h5>Following: {this.props.userData.following}</h5>
+                        {this.props.posts ? <h5>Posts: {Object.values(this.props.posts).length}</h5> : <h5>Posts: 0</h5>}
                     </div>
                 )
             }else{
@@ -61,7 +63,6 @@ class Profile extends React.Component{
             <div className = {"userInfo"}>
         <h2>{this.state.username}</h2>
         <h3>{(this.props.userData) ? this.props.userData.email : ":)"}</h3>
-        <h4>{this.state.name}</h4>
         {this.data()}
         <h5>{this.state.bio}</h5>
             </div>

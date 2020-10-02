@@ -9,6 +9,7 @@ export {
     getUserData,
     addCard,
     updateCard,
-    getCurrentCards
+    getCurrentCards,
+    getUsername
     //test
 } from "./main"

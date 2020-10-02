@@ -51,7 +51,6 @@ class Vote extends React.Component{
         console.log(this.state.voters);
         return(
             <div>
-                {this.state.voters? <h1>WORKED</h1>:<h1>:(</h1>}
                 <ul>{this.state.votes}</ul>
                 {this.checkUser()}
             </div>

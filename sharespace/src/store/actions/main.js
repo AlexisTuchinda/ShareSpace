@@ -30,6 +30,22 @@ export const getUserData = (userId) => {
     }
 };
 
+export const getUsername=(userId) => {
+    let data, x;
+    return async dispatch => {
+        x = await firebase.database().ref("users/"+userId);
+        await x.on('value', async (snapshot) => {
+            data = snapshot.val();
+            if (data.email){
+                console.log("YES WORKING :)");
+                return data.email;
+            }else{
+                return "YEah Dad";
+            }
+        })
+    }
+}
+
 export const addData = (userId, data) => {
     let updates = {};
     let Ref;
@@ -115,8 +131,8 @@ export const auth = (formData, isNewSignUp) => {
                     let userRef = await firebase.database().ref('users/'+ userId);
                     await userRef.on('value', async (snapshot) => {
                         let userData= snapshot.val();
-                        await dispatch(authSignupSuccess(userData, userId));
                         await dispatch(getCards(userId));
+                        await dispatch(authSignupSuccess(userData, userId));
                         return userData;
                     });
                     await localStorage.getItem('token', idToken);
@@ -152,10 +168,12 @@ export const getCurrentCards = () =>{
             if (users){
                 Object.values(users).map((user) => {
                     console.log("Current Card user: ", user);
-                    Object.values(user.posts).map((post) => {
-                        console.log("IN POST:::: ", post)
-                        peeps.push(post); 
-                    })
+                    if (user.posts){
+                        Object.values(user.posts).map((post) => {
+                                console.log("IN POST:::: ", post)
+                                peeps.push(post); 
+                        })
+                    }
                 })
             }
             console.log(peeps);
@@ -176,6 +194,7 @@ export const getCards = (userId) => {
                 // console.log("getCards (actions) return voters: ", posts.owner);
             }else{
                 console.log("Failed to get Posts");
+                await dispatch({type: actionTypes.GET_USER_CARDS, posts: null});
             }
         });
     }
@@ -184,6 +203,7 @@ export const getCards = (userId) => {
 export const addCard = (userId, card) =>{
     card.id =  Math.floor((Date.now()/1000 - 1530231260 ));
     card.owner = userId;
+    card.name = firebase.auth().currentUser.email;
     
     let updates = {};
     updates["users/"+userId+'/posts/' + card.id] = card;
@@ -228,8 +248,6 @@ export const updateCard = (userId, cardId, increment) =>{
         })    
             //console.log("Updates: ", updates);
             await firebase.database().ref().update(updates);
-
-            dispatch(getCards(userId));
         }
         
     };

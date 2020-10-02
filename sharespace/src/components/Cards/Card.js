@@ -13,7 +13,7 @@ class Card extends React.Component {
         this.state = {
             //data: props.post,
             title: props.title,
-            username: props.email,
+            username: props.username,
             image: props.image, //link
             id: props.id,
             description: props.description,
@@ -37,7 +37,6 @@ class Card extends React.Component {
         
         return (
             <div className = "card"> 
-            {this.state.voters? <h1>WORKED</h1>:<h1>:(</h1>}
                 <div>
                     <h1>{this.state.title} by {this.state.username}</h1>
                 </div>

@@ -27,12 +27,13 @@ class Home extends React.Component{
     }
 
     showCards(){
+        let user;
         if (this.props.homepage){
             console.log("POSTS: ", this.props.homepage)
-            console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
+            // console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
             return Object.values(this.props.homepage).map((post, index) => {
                 console.log(index, post);
-                return <Card key = {index} username = {post.owner} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
+                return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
             })
         } else{
             return <div>No Posts! :(</div>
@@ -63,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         //test: () => dispatch(actions.test()),
         //logout: () => dispatch(actions.logout())
-        getCurrentCards: () => dispatch(actions.getCurrentCards())
+        getCurrentCards: () => dispatch(actions.getCurrentCards()),
     }
 }
 
