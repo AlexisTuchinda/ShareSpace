@@ -23,28 +23,43 @@ class Vote extends React.Component{
     }
 
     checkUser(){
-        if ((this.state.voters && !(Object.values(this.state.voters).includes(this.state.currentUser))) || this.state.votes === 0){
-            //console.log("checkUser: ", Object.values(this.state.voters).includes(this.props.userId), this.props.userId);
-            return(
-                <div>
-                <button onClick = {() => this.props.updateCard(this.state.owner, this.state.id, null)}>VOTE</button>
-                </div>
+        console.log("CheckUser() - currentUser: ", this.state.currentUser, "; this.state.owner: ", this.state.owner, "; card Id: ", this.state.id);
+        if (this.state.voters) {
+            console.log("currentUser: ", this.state.currentUser, "; userID: ", this.props.userId);
+            console.log("STUFFFFF: ", (!(Object.values(this.state.voters).includes(this.state.currentUser)) && this.state.currentUser!==this.state.owner));
+            if ((!(Object.values(this.state.voters).includes(this.state.currentUser)) && this.state.currentUser!==this.state.owner)){
+                
+                // console.log("Past checkUser()");
+                return(
+                    <div>
+                    <button onClick = {() => this.props.updateCard(this.props.userId, this.state.owner, this.state.id, null)}>VOTE</button>
+                    </div>
                 )
             }
-        else if (!this.state.voters){
+            //console.log("checkUser: ", Object.values(this.state.voters).includes(this.props.userId), this.props.userId);
+            
+            else{
+                return(
+                    <div>
+                        <h5><i>You have already voted on this artwork.</i></h5>
+                            </div>         
+                )
+            }
+
+        }else{
             return(
                 <div>
-                       <h5><i>Voters have not loaded.</i></h5>
-                        </div>         
+                <button onClick = {() => this.props.updateCard(this.props.userId, this.state.owner, this.state.id, null)}>VOTE</button>
+                </div>
             )
         }
-        else{
-            return(
-                <div>
-                       <h5><i>You have already voted on this artwork.</i></h5>
-                        </div>         
-            )
-        }
+        // else if (!this.state.voters){
+        //     return(
+        //         <div>
+        //                <h5><i>Voters have not loaded.</i></h5>
+        //                 </div>         
+        //     )
+        // }
     }
 
     render(){

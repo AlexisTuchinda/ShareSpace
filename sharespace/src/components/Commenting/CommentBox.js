@@ -23,7 +23,7 @@ class CommentBox extends React.Component{
     }
 
     createNewComment(){
-        this.props.updateCard(this.props.userId, this.state.cardId, {username: this.state.username, value: this.state.commentInput})
+        this.props.updateCard(null, this.props.userId, this.state.cardId, {username: this.state.username, value: this.state.commentInput})
     }
 
     displayComments(){

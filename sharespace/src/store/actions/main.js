@@ -176,6 +176,10 @@ export const getCurrentCards = () =>{
                     }
                 })
             }
+            await Object.values(peeps).sort(function(a ,b) {
+                return  b.votes - a.votes;
+                });
+
             console.log(peeps);
             await dispatch({type: actionTypes.GET_CURRENT_CARDS, homepage: peeps});
         })
@@ -216,7 +220,7 @@ export const addCard = (userId, card) =>{
     
    }
 
-export const updateCard = (userId, cardId, increment) =>{
+export const updateCard = (voter,  userId, cardId, increment) =>{
     let updates = {};
     let card;
     return async dispatch => {
@@ -226,14 +230,15 @@ export const updateCard = (userId, cardId, increment) =>{
         await cardRef.on('value', (snapshot) => {
             console.log(snapshot.val());
             if (snapshot.val()) {
-                card= snapshot.val()===null ? null : snapshot.val();
+                card= snapshot.val();
                 console.log("CARD: ", card);
-                if (card && increment===null){
+                if (card && increment==null){
+                    console.log("VOTES IN UPDATE: ", card.votes, card.voters);
                     card.votes = card.votes+1;
                     if (card.voters){
-                        card.voters.push(userId);
+                        card.voters.push(voter);
                     }else{
-                        card.voters = [userId];
+                        card.voters = [voter];
                     }
                 } else if (increment){
                     if (card.comments){
@@ -248,6 +253,6 @@ export const updateCard = (userId, cardId, increment) =>{
         })    
             //console.log("Updates: ", updates);
             await firebase.database().ref().update(updates);
+            await dispatch(getCurrentCards());
         }
-        
     };

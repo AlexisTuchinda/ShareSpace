@@ -20,7 +20,7 @@ class Home extends React.Component{
     componentDidMount(){
         
         //this.setState({cards: this.props.getCurrentCards()});
-        console.log("in Home did_mount");
+        //console.log("in Home did_mount");
         if (this.props.loggedIn){
             this.props.getCurrentCards();
         }
@@ -29,10 +29,10 @@ class Home extends React.Component{
     showCards(){
         let user;
         if (this.props.homepage){
-            console.log("POSTS: ", this.props.homepage)
+            //console.log("POSTS: ", this.props.homepage)
             // console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
             return Object.values(this.props.homepage).map((post, index) => {
-                console.log(index, post);
+                //console.log(index, post);
                 return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
             })
         } else{

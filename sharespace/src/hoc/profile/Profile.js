@@ -24,7 +24,7 @@ class Profile extends React.Component{
 
     displayPosts(){
         if (this.props.posts){
-            console.log(this.props.posts);
+            //console.log(this.props.posts);
             return Object.values(this.props.posts).map((post) => {
                 //console.log("displayPosts: ", post.voters);
                 return <Card id = {post.id} title = {post.title} username= {post.name} image = {post.image} description = {post.description} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
@@ -36,7 +36,7 @@ class Profile extends React.Component{
     data(){ 
         // let newPost = <Card username= {this.state.username} title = {"TEST"} votes = {0} isAuthenticated = {true} />;
         // this.setState({newPosts:[...this.state.newPosts, newPost]});
-        console.log(this.props.posts);
+        //console.log(this.props.posts);
         if (this.props.userData){
             if (this.props.userData.followers != null && this.props.userData.following != null && this.props.posts){
                 return (
