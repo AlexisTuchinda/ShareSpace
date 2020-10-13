@@ -8,6 +8,7 @@ class Vote extends React.Component{
     constructor(props){
         super(props);
         this.state ={
+            update: 0,
             currentUser: props.currentUser,
             votes: props.votes,
             voters: props.voters,
@@ -20,19 +21,18 @@ class Vote extends React.Component{
 
     componentDidMount(){
         console.log(this.state.voters);
+        this.props.getCurrentCards();
     }
 
     checkUser(){
         console.log("CheckUser() - currentUser: ", this.state.currentUser, "; this.state.owner: ", this.state.owner, "; card Id: ", this.state.id);
         if (this.state.voters) {
-            console.log("currentUser: ", this.state.currentUser, "; userID: ", this.props.userId);
-            console.log("STUFFFFF: ", (!(Object.values(this.state.voters).includes(this.state.currentUser)) && this.state.currentUser!==this.state.owner));
             if ((!(Object.values(this.state.voters).includes(this.state.currentUser)) && this.state.currentUser!==this.state.owner)){
                 
                 // console.log("Past checkUser()");
                 return(
                     <div>
-                    <button onClick = {() => this.props.updateCard(this.props.userId, this.state.owner, this.state.id, null)}>VOTE</button>
+                    <button onClick = {() => {this.props.updateCard(this.props.userId, this.state.owner, this.state.id, null); this.setState({update: Math.random()})}}>VOTE</button>
                     </div>
                 )
             }
@@ -46,7 +46,7 @@ class Vote extends React.Component{
                 )
             }
 
-        }else{
+        }else if (this.state.currentUser!==this.state.owner){
             return(
                 <div>
                 <button onClick = {() => this.props.updateCard(this.props.userId, this.state.owner, this.state.id, null)}>VOTE</button>
@@ -63,9 +63,13 @@ class Vote extends React.Component{
     }
 
     render(){
-        console.log(this.state.voters);
+        // if (this.state.voters){
+        //     console.log(this.state.id, "_Object: ", (!(Object.values(this.state.voters).includes(this.state.currentUser))));
+        //     console.log("currentUser: ", this.state.currentUser, "; userID: ", this.props.userId);
+        //     console.log(this.state.id, "_Owner: ", this.state.currentUser!==this.state.owner);
+        // }
         return(
-            <div>
+            <div className = "side">
                 <ul>{this.state.votes}</ul>
                 {this.checkUser()}
             </div>
@@ -82,7 +86,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         //showCards: () => dispatch(actions.showCards())
-        updateCard: (userId, cardId, increment) => dispatch(actions.updateCard(userId, cardId, increment))
+        updateCard: (userId, cardId, increment) => dispatch(actions.updateCard(userId, cardId, increment)),
+        getCurrentCards: () => dispatch(actions.getCurrentCards())
     }
 }
 

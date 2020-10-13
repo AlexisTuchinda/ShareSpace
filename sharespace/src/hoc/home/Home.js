@@ -4,6 +4,7 @@ import Card from "../../components/Cards/Card";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import * as actions from "../../store/actions";
+import "./Home.css";
 
 class Home extends React.Component{
     constructor(props){
@@ -33,7 +34,7 @@ class Home extends React.Component{
             // console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
             return Object.values(this.props.homepage).map((post, index) => {
                 //console.log(index, post);
-                return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner}/>
+                return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner} tags = {post.tags}/>
             })
         } else{
             return <div>No Posts! :(</div>
@@ -41,9 +42,11 @@ class Home extends React.Component{
     }
 
     render(){
-        return(<div>
-            <ul>{this.showCards()}</ul>
-        </div>)
+        return(<div className = {"Scroll"}><div className = {"show"}>
+        <ul>{this.showCards()}</ul>
+    </div>
+    </div>  
+        )
     }
 }
 

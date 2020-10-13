@@ -167,20 +167,19 @@ export const getCurrentCards = () =>{
             console.log(users);
             if (users){
                 Object.values(users).map((user) => {
-                    console.log("Current Card user: ", user);
                     if (user.posts){
                         Object.values(user.posts).map((post) => {
-                                console.log("IN POST:::: ", post)
+                                //console.log("IN POST:::: ", post)
                                 peeps.push(post); 
                         })
                     }
                 })
             }
-            await Object.values(peeps).sort(function(a ,b) {
+            peeps = await Object.values(peeps).sort(function(a ,b) {
                 return  b.votes - a.votes;
                 });
 
-            console.log(peeps);
+            //console.log(peeps);
             await dispatch({type: actionTypes.GET_CURRENT_CARDS, homepage: peeps});
         })
     })
@@ -197,7 +196,7 @@ export const getCards = (userId) => {
                 // console.log("getCards (actions) return posts: ", posts);
                 // console.log("getCards (actions) return voters: ", posts.owner);
             }else{
-                console.log("Failed to get Posts");
+                //console.log("Failed to get Posts");
                 await dispatch({type: actionTypes.GET_USER_CARDS, posts: null});
             }
         });
@@ -224,23 +223,24 @@ export const updateCard = (voter,  userId, cardId, increment) =>{
     let updates = {};
     let card;
     return async dispatch => {
-        console.log(userId, cardId)
+        //console.log(userId, cardId)
         let cardRef = await firebase.database().ref("users/"+userId+'/posts/' + cardId);
         //console.log("CARD REF: ", cardRef);
         await cardRef.on('value', (snapshot) => {
             console.log(snapshot.val());
             if (snapshot.val()) {
                 card= snapshot.val();
-                console.log("CARD: ", card);
+                //console.log("CARD: ", card);
                 if (card && increment==null){
-                    console.log("VOTES IN UPDATE: ", card.votes, card.voters);
+                    //console.log("VOTES IN UPDATE: ", card.votes, card.voters);
                     card.votes = card.votes+1;
                     if (card.voters){
                         card.voters.push(voter);
                     }else{
                         card.voters = [voter];
                     }
-                } else if (increment){
+                } else if (card && increment){
+                    //console.log("updateCard comments: ", card.comments);
                     if (card.comments){
                         card.comments.push(increment);
                     }

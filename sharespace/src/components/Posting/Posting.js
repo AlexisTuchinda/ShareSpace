@@ -21,7 +21,8 @@ function Posting (props) {
         image: "",
         votes: 0,
         voters: [],
-        comments:[]
+        comments:[],
+        tags: []
     })
 
 
@@ -40,6 +41,13 @@ function Posting (props) {
         setAddOn({
             ...addOn,
             title: e.target.value
+        });
+    };
+
+    const changeTags = e => {
+        setAddOn({
+            ...addOn,
+            tags: e.target.value
         });
     };
 
@@ -71,6 +79,12 @@ console.log("In Posting...");
                 value={addOn.image}
                 id="imageInput"
                 placeholder = "Image URL"
+                />
+                <input
+                onChange={changeTags}
+                value={addOn.tags}
+                id="tagInput"
+                placeholder = "Tag"
                 />
                 <input
                 onChange={changeDescription}

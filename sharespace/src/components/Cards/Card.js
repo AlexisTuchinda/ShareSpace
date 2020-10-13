@@ -22,7 +22,9 @@ class Card extends React.Component {
             voters: props.voters,
             voting: null,
             commenting: null,
-            owner: props.owner
+            owner: props.owner,
+            comments: props.comments,
+            tags: props.tags
         };
     }
 
@@ -33,9 +35,18 @@ class Card extends React.Component {
         this.setState({commenting: <CommentBox username = {this.props.userData.email} comments = {this.state.comments} cardId = {this.state.id}/>, voting: <Vote currentUser = {this.props.userId} votes = {this.state.votes} voters = {this.state.voters} id = {this.state.id} owner = {this.state.owner}/> });
     }
 
+    description(){
+        return (
+            <div className = "description">
+                <h4><i>{this.state.description}</i></h4>
+            </div>
+        );
+    }
+
     render() {
         
         return (
+            
             <div className = "card"> 
                 <div>
                     <h1>{this.state.title} by {this.state.username}</h1>
@@ -43,8 +54,12 @@ class Card extends React.Component {
                 <div>
                     <img src = {this.state.image}/>
                 </div>
+                <div className = "side">
+                {this.description()}
                 <h4><b>{this.state.isAuthenticated  ? this.state.voting : "LOG IN TO VOTE"}</b></h4>
+                </div>
                 <h4><b>{this.state.isAuthenticated ? this.state.commenting : "LOG IN TO COMMENT"}</b></h4>
+                <h6><b>{this.state.tags}</b></h6>
             </div>
         );
     }

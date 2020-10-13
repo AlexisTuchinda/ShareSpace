@@ -27,12 +27,12 @@ class CommentBox extends React.Component{
     }
 
     displayComments(){
-        console.log("In display comments");
+        //console.log(this.state.comments);
         if (this.state.showComments && this.state.comments){
             return(
-                <div class = "commentColumn">
+                <ul className = "commentColumn">
                     {this.state.comments.map((comment, index) => (<li key = {index}><Comment username = {comment.username} value = {comment.value}/></li>))}
-                </div>
+                </ul>
             )
         }
     }
@@ -77,7 +77,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         //showCards: () => dispatch(actions.showCards())
-        updateCard: (userId, cardId, increment) => dispatch(actions.updateCard(userId, cardId, increment))
+        updateCard: (voter, userId, cardId, increment) => dispatch(actions.updateCard(voter, userId, cardId, increment))
     }
 }
 
