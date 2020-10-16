@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actiontypes";
 import {updateObject} from "../utility";
+import { search } from "../actions";
 
 const initialState = {
     isAuthenticated: false,
@@ -9,7 +10,8 @@ const initialState = {
     message: "",
     userId: null,
     posts: [],
-    homepage: []
+    homepage: [],
+    searchResults: []
 }
 
 const startSignup = (state, action) => {
@@ -83,9 +85,17 @@ const updateCard = (state, action) => {
 }
 
 const getCurrentCards = (state, action) => {
-    console.log("getCurrentCards HOMEPAGE: ", action.homepage);
+    //console.log("getCurrentCards HOMEPAGE: ", action.homepage);
+    let current = action.homepage;
     return updateObject(state, {
-        homepage: action.homepage
+        homepage: current,
+        searchResults: current
+    })
+}
+
+const searchResults = (state, action) => {
+    return updateObject(state, {
+        searchResults: action.searchResults
     })
 }
 
@@ -102,6 +112,7 @@ const reducer = (state = initialState, action) => {
         case(actionTypes.ADD_CARD_TO_CURRENTS): return addCard(state, action);
         case(actionTypes.UPDATE_CARD): return updateCard(state, action);
         case(actionTypes.GET_CURRENT_CARDS): return getCurrentCards(state, action);
+        case(actionTypes.SEARCH): return searchResults(state, action);
         default: return state;
     }
 }

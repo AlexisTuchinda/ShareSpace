@@ -3,6 +3,7 @@ import firebase from "firebase";
 import * as actions from "../actions";
 import React from "react";
 import Card from "../../components/Cards/Card";
+import { isCompositeComponent } from "react-dom/test-utils";
 
 /* Getting data from firebase
 
@@ -256,3 +257,36 @@ export const updateCard = (voter,  userId, cardId, increment) =>{
             await dispatch(getCurrentCards());
         }
     };
+
+export const cardTagSearch = (userId, cardId, tag, selected) => {
+    let tags, card;
+    return async dispatch => {
+        let cardRef = await firebase.database().ref("users/"+userId+'/posts/' + cardId);
+        await cardRef.on('value', (snapshot) => {
+            //console.log(snapshot.val());
+            if (snapshot.val()){
+                //console.log("checking individual card...", tags.includes(tag));
+                card = snapshot.val();
+                tags = card.tags.split(",");
+                console.log("In Tag Search: ", tags);
+                if (tags.includes(tag.searchbar)){
+                    selected.push(cardId);
+                }
+            }
+        })
+    }
+}
+
+export const search = (tag, homepage) => {
+    let selected=[];
+    return async dispatch => {
+        await dispatch(getCurrentCards());
+        Object.values(homepage).map((card) => {
+            console.log("In Search: ", card.owner, card.id, tag, selected);
+            dispatch(cardTagSearch(card.owner, card.id, tag, selected));
+        })
+
+        dispatch({type: actionTypes.SEARCH,
+            searchResults: selected});
+    }
+}

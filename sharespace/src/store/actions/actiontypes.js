@@ -37,3 +37,5 @@ export const RESET_ALL = "RESET_ALL";
 
 //test
 export const TEST = "TEST";
+
+export const SEARCH= "SEARCH";

@@ -10,6 +10,7 @@ export {
     addCard,
     updateCard,
     getCurrentCards,
-    getUsername
+    getUsername,
+    search
     //test
 } from "./main"
