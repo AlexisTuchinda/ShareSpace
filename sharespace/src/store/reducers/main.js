@@ -88,8 +88,7 @@ const getCurrentCards = (state, action) => {
     //console.log("getCurrentCards HOMEPAGE: ", action.homepage);
     let current = action.homepage;
     return updateObject(state, {
-        homepage: current,
-        searchResults: current
+        homepage: current
     })
 }
 

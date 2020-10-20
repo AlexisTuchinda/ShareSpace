@@ -15,12 +15,12 @@
   background-color: #332538;
 }
 
-ul {
+ ul {
   display: table;
   padding: 0%;
   margin: 0%;
   width: 100%;
-}
+} 
 
 li {
   display: table-cell;

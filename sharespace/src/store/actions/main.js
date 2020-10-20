@@ -258,35 +258,31 @@ export const updateCard = (voter,  userId, cardId, increment) =>{
         }
     };
 
-export const cardTagSearch = (userId, cardId, tag, selected) => {
-    let tags, card;
-    return async dispatch => {
-        let cardRef = await firebase.database().ref("users/"+userId+'/posts/' + cardId);
-        await cardRef.on('value', (snapshot) => {
-            //console.log(snapshot.val());
-            if (snapshot.val()){
-                //console.log("checking individual card...", tags.includes(tag));
-                card = snapshot.val();
-                tags = card.tags.split(",");
-                console.log("In Tag Search: ", tags);
-                if (tags.includes(tag.searchbar)){
-                    selected.push(cardId);
-                }
-            }
-        })
-    }
-}
-
 export const search = (tag, homepage) => {
     let selected=[];
+    let tags;
     return async dispatch => {
         await dispatch(getCurrentCards());
         Object.values(homepage).map((card) => {
-            console.log("In Search: ", card.owner, card.id, tag, selected);
-            dispatch(cardTagSearch(card.owner, card.id, tag, selected));
+            //console.log("In Search: ", card.owner, card.id, tag, selected);
+            //dispatch(cardTagSearch(card.owner, card.id, tag));
+            let cardRef = firebase.database().ref("users/"+card.owner+'/posts/' + card.id);
+            cardRef.on('value', (snapshot) => {
+                //console.log(snapshot.val());
+                if (snapshot.val()){
+                    //console.log("checking individual card...", tags.includes(tag));
+                    card = snapshot.val();
+                    tags = card.tags.split(", ");
+                    console.log("In Tag Search: ", tags, ", has search = ", tags.includes(tag.searchbar));
+                    if (tags.includes(tag.searchbar)){
+                        selected.push(card);
+                    }
+                }
+            })
         })
+        //console.log(selected);
 
-        dispatch({type: actionTypes.SEARCH,
-            searchResults: selected});
+        await dispatch({type: actionTypes.SEARCH, searchResults: selected});
+        
     }
 }

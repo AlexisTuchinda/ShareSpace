@@ -30,16 +30,16 @@ class Home extends React.Component{
     }
 
     showCards(){
-        let user;
-        if (this.state.cards && !this.props.searchResults){
-            //console.log("POSTS: ", this.props.homepage)
-            // console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
-            return Object.values(this.state.cards).map((post, index) => {
+        if (this.props.searchResults){
+            console.log("In Home: ", this.props.searchResults);
+            return Object.values(this.props.searchResults).map((post, index) => {
                 //console.log(index, post);
                 return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner} tags = {post.tags}/>
             })
-        } else if (this.props.searchResults){
-            return Object.values(this.props.searchResults).map((post, index) => {
+        } else if (this.state.cards){
+            //console.log("POSTS: ", this.props.homepage)
+            // console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
+            return Object.values(this.state.cards).map((post, index) => {
                 //console.log(index, post);
                 return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner} tags = {post.tags}/>
             })
@@ -55,7 +55,7 @@ class Home extends React.Component{
                 <Search/>
                 <div className = {"Scroll"}>
                     <div className = {"show"}>
-                        <ul>{this.showCards()}</ul>
+                       {this.showCards()}
                         </div>
                 </div>  
             </div>
