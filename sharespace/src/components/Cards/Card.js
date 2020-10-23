@@ -11,20 +11,20 @@ class Card extends React.Component {
     constructor (props){
         super(props);
         this.state = {
-            //data: props.post,
-            title: props.title,
-            username: props.username,
-            image: props.image, //link
-            id: props.id,
-            description: props.description,
-            isAuthenticated: this.props.loggedIn,
-            votes: props.votes,
-            voters: props.voters,
+            // title: props.title,
+            // username: props.username,
+            // image: props.image, //link
+            // id: props.id,
+            // description: props.description,
+            // isAuthenticated: this.props.loggedIn,
+            // votes: props.votes,
+            // voters: props.voters,
+            // owner: props.owner,
+            // comments: props.comments,
+            // tags: props.tags,
             voting: null,
-            commenting: null,
-            owner: props.owner,
-            comments: props.comments,
-            tags: props.tags
+            commenting: null
+            
         };
     }
 
@@ -32,13 +32,13 @@ class Card extends React.Component {
 
     componentDidMount(){
         //console.log("didmount votes: ", this.state.votes);
-        this.setState({commenting: <CommentBox username = {this.props.userData.email} comments = {this.state.comments} cardId = {this.state.id}/>, voting: <Vote currentUser = {this.props.userId} votes = {this.state.votes} voters = {this.state.voters} id = {this.state.id} owner = {this.state.owner}/> });
+        this.setState({commenting: <CommentBox username = {this.props.userData.email} comments = {this.props.comments} cardId = {this.props.id}/>, voting: <Vote currentUser = {this.props.userId} votes = {this.props.votes} voters = {this.props.voters} id = {this.props.id} owner = {this.props.owner}/> });
     }
 
     description(){
         return (
             <div className = "description">
-                <h4><i>{this.state.description}</i></h4>
+                <h4><i>{this.props.description}</i></h4>
             </div>
         );
     }
@@ -49,17 +49,17 @@ class Card extends React.Component {
             
             <div className = "card"> 
                 <div>
-                    <h1>{this.state.title} by {this.state.username}</h1>
+                    <h1>{this.props.title} by {this.props.username}</h1>
                 </div>
                 <div>
-                    <img src = {this.state.image}/>
+                    <img src = {this.props.image}/>
                 </div>
                 <div className = "side">
                 {this.description()}
-                <h4><b>{this.state.isAuthenticated  ? this.state.voting : "LOG IN TO VOTE"}</b></h4>
+                <h4><b>{this.props.loggedIn  ? this.state.voting : "LOG IN TO VOTE"}</b></h4>
                 </div>
-                <h4><b>{this.state.isAuthenticated ? this.state.commenting : "LOG IN TO COMMENT"}</b></h4>
-                <h6><b>{this.state.tags}</b></h6>
+                <h4><b>{this.props.loggedIn ? this.state.commenting : "LOG IN TO COMMENT"}</b></h4>
+                <h6><b>{this.props.tags}</b></h6>
             </div>
         );
     }

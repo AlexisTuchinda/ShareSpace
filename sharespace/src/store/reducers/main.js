@@ -86,9 +86,9 @@ const updateCard = (state, action) => {
 
 const getCurrentCards = (state, action) => {
     //console.log("getCurrentCards HOMEPAGE: ", action.homepage);
-    let current = action.homepage;
+    console.log("getCurrentCards: ", action.homepage);
     return updateObject(state, {
-        homepage: current
+        homepage: action.homepage
     })
 }
 

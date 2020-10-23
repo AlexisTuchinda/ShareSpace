@@ -11,34 +11,26 @@ class Home extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            //username: "Dad",
-            /*
-            existingCards: [<Card username= {props.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {props.isAuthenticated} />,
-            <Card username= {props.username} title = {"Vardads!!!!"} votes = {0} isAuthenticated = {props.isAuthenticated} />] //connect to overall App storage thing
-            */
            cards: this.props.homepage
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         
-        //this.setState({cards: this.props.getCurrentCards()});
-        //console.log("in Home did_mount");
         if (this.props.loggedIn){
             this.props.getCurrentCards();
         }
     }
 
     showCards(){
-        if (this.props.searchResults){
+        //onsole.log(this.state.cards);
+        if (this.props.searchResults.length >0){
             console.log("In Home: ", this.props.searchResults);
             return Object.values(this.props.searchResults).map((post, index) => {
-                //console.log(index, post);
+                console.log("DISPLAYING SEARCH: ", index, post);
                 return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner} tags = {post.tags}/>
             })
         } else if (this.state.cards){
-            //console.log("POSTS: ", this.props.homepage)
-            // console.log("POSTS LENGTH: ", Object.values(this.props.homepage).length);
             return Object.values(this.state.cards).map((post, index) => {
                 //console.log(index, post);
                 return <Card key = {index} username = {post.name} title = {post.title} description = {post.description} image = {post.image} id = {post.id} votes = {post.votes} voters = {post.voters} comments = {post.comments} owner = {post.owner} tags = {post.tags}/>
@@ -46,6 +38,7 @@ class Home extends React.Component{
         }
         else{
             return <div>No Posts! :(</div>
+
         }
     }
 

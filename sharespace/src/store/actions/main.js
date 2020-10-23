@@ -273,8 +273,8 @@ export const search = (tag, homepage) => {
                     //console.log("checking individual card...", tags.includes(tag));
                     card = snapshot.val();
                     tags = card.tags.split(", ");
-                    console.log("In Tag Search: ", tags, ", has search = ", tags.includes(tag.searchbar));
-                    if (tags.includes(tag.searchbar)){
+                    //console.log("In Tag Search: ", tags, ", has search = ", tags.includes(tag.searchbar));
+                    if (tags.map(v => v.toLowerCase()).includes(tag.searchbar.toLowerCase())){
                         selected.push(card);
                     }
                 }
