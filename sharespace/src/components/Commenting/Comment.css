@@ -3,4 +3,9 @@
     border-width: 1px;
     text-align: center;
     margin: 10px;
+    border: 2px solid rgba(154, 236, 219,1.0);
+    width: 230px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 3px 3px 1px 1px rgba(154, 236, 219,1.0);
 }

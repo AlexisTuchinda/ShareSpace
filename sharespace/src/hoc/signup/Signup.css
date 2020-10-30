@@ -1,0 +1,11 @@
+.y{
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+    padding: 25px;
+}
+
+.inner{
+    display: flex;
+    flex-direction: column;
+}

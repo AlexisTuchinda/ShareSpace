@@ -1,0 +1,7 @@
+
+COLORs
+
+Oasis Stream (Turquoise): rgba(154, 236, 219,1.0)
+
+Highlighter Lavendar (Dark Purple): rgba(130, 88, 159,1.0)
+Bright Ube (Light Pinkish Purple): rgba(214, 162, 232,1.0)

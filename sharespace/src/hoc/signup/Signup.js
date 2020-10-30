@@ -5,6 +5,7 @@ import {connect, useDispatch} from "react-redux";
 import {withRouter} from "react-router-dom";
 import * as actions from "../../store/actions";
 import {auth} from "../../store/actions";
+import "./Signup.css";
 
 function Signup() {
   const [signupInfo, setSignupInfo] = useState({
@@ -61,22 +62,24 @@ function Signup() {
   }
 
   return (
-    <div >
-      <input
-        onChange={changeUsername}
-        value={signupInfo.email}
-        id="usernameInput"
-        placeholder="Username (Email)"
-      />
-      <input
-        onChange={changePassword}
-        value={signupInfo.password}
-        id="passwordInput"
-        placeholder = "Password"
-      />
-      <button onClick={submit}>SIGN UP</button>
-      <h2>{isSignedup ? "SIGNED UP" : ""}</h2>
-      {result.result}
+    <div className = {"y"}>
+        <div className = {"inner"}>
+           <input
+            onChange={changeUsername}
+           value={signupInfo.email}
+            id="usernameInput"
+             placeholder="Username (Email)"
+           />
+           <input
+             onChange={changePassword}
+            value={signupInfo.password}
+            id="passwordInput"
+            placeholder = "Password"
+           />
+        {/* <button onClick={setOpen(false)}>Close</button> */}
+        </div>
+        <button onClick={submit}>SIGN UP</button>
+        {result.result}
     </div>
   );
 }

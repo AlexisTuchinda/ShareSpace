@@ -20,8 +20,10 @@ function Login() {
 
   const [isLogged, setIsLogged] = useState(false);
 
-  const [inSignup, enterSignup]  = useState({signup:null})
+  const [isSignup, enterSignup]  = useState(false)
 
+  const [buttonTxt, changeTxt] = useState("Open Signup")
+;
   const changeUsername = e => {
     setLoginInfo({
       ...loginInfo,
@@ -43,31 +45,27 @@ function Login() {
       });
   }
 
-  const startSignup = () => {
-    enterSignup({
-        ...inSignup,
-        signup: <Signup/>
-    })
-  }
-
   return (
-    <div className="outerContainer">
-      <input
-        onChange={changeUsername}
-        value={loginInfo.email}
-        id="usernameInput"
-        placeholder="Username"
-      />
-      <input
-        onChange={changePassword}
-        value={loginInfo.password}
-        id="passwordInput"
-        placeholder = "Password"
-      />
-      <button onClick={submit}>LOGIN</button>
-      <h2>{isLogged ? "LOGGED IN" : ""}</h2>
-          <button onClick={startSignup}>Sign Up?</button>
-          {inSignup.signup}
+    <div className={"outerContainer"}>
+      <div className = {"x"}>
+        <input
+          onChange={changeUsername}
+          value={loginInfo.email}
+          id="usernameInput"
+          placeholder="Username"
+        />
+        <input
+          onChange={changePassword}
+          value={loginInfo.password}
+          id="passwordInput"
+          placeholder = "Password"
+        />
+        
+        <button onClick={submit}>LOGIN</button>
+        <h2>{isLogged ? "LOGGED IN" : ""}</h2>
+      </div>
+      <button onClick = {()=>{enterSignup(!isSignup); if (isSignup) {changeTxt("Open Signup")} else{changeTxt("Close Signup")}}}>{buttonTxt}</button>
+      {isSignup? <Signup/> : null}
     </div>
   );
 }

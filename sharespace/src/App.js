@@ -11,6 +11,8 @@ import * as actions from "./store/actions";
 export default function App() {
   
   return (
-    <Navigation/>
+    <div className = {"App"}>
+<Navigation/>
+    </div>
   );
 } 

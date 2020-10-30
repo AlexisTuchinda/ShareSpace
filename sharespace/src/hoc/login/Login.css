@@ -2,9 +2,19 @@
 .outerContainer {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    max-width: 40%;
     height: auto;
     margin: auto;
-    background: #332538;
-    padding: 10px;
+    align-items: center;
+    margin-top: 25%;
+    background: rgba(130, 88, 159,1.0);
+    border: 5px solid rgba(255, 229, 33, 0.75);
+    padding: 25px;
+    border-radius: 50px;
+}
+
+.x{
+    display: flex;
+    flex-direction: column;
+    /* background-color: red; */
 }
