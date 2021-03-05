@@ -21,7 +21,7 @@ button {
 .userInfo {
     display: flex;
     flex-direction: column;
-    background-color: #726078;
+    background-color: rgba(130, 88, 159,1.0);
     border: 1px 0px black;
     width: 30%;
     align-content: center;

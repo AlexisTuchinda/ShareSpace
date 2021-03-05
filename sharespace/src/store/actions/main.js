@@ -2,7 +2,6 @@ import * as actionTypes from "./actiontypes";
 import firebase from "firebase";
 import * as actions from "../actions";
 import React from "react";
-import Card from "../../components/Cards/Card";
 import { isCompositeComponent } from "react-dom/test-utils";
 
 /* Getting data from firebase
@@ -38,7 +37,6 @@ export const getUsername=(userId) => {
         await x.on('value', async (snapshot) => {
             data = snapshot.val();
             if (data.email){
-                console.log("YES WORKING :)");
                 return data.email;
             }else{
                 return "YEah Dad";
@@ -256,7 +254,7 @@ export const updateCard = (voter,  userId, cardId, increment) =>{
             await firebase.database().ref().update(updates);
             await dispatch(getCurrentCards());
         }
-    };
+    }
 
 export const search = (tag, homepage) => {
     let selected=[];
@@ -284,5 +282,30 @@ export const search = (tag, homepage) => {
 
         await dispatch({type: actionTypes.SEARCH, searchResults: selected});
         
+    }
+}
+
+export const updateChat = () => {
+    let x, chat;
+    return async dispatch =>{
+        x = await firebase.database().ref("chat");
+        await x.on('value', async (snapshot) => {
+            if (snapshot.val()){
+                chat = snapshot.val();
+                dispatch({type: actionTypes.UPDATE_CHAT, message: {chat}});
+            }
+        });
+    }
+}
+
+export const sendMessage = (message, userId, timeSent) => {
+    let updates = {};
+    let sent = {message: message, sender: userId,  timeSent: timeSent}
+    updates["chat/"+timeSent+"/"+userId] = sent;
+
+    firebase.database().ref().update(updates);
+
+    return dispatch =>{
+        dispatch(updateChat());
     }
 }

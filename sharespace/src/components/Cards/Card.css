@@ -15,7 +15,7 @@
 
 img{
     width: 90%;
-    border: solid rgba(154, 236, 219,1.0);
+    /* border: solid rgba(154, 236, 219,1.0); */
     border-width: 5px;
 }
 

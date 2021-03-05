@@ -46,10 +46,15 @@ h1 {
  font-family: "Rubik";
 }
 
-button {
-  border: 1px solid rgba(255, 130, 245, 0.76);
-}
+
+
 
 h5{
   color: rgba(154, 236, 219,1.0);
+}
+
+input {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 2px;
 }

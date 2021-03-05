@@ -11,7 +11,8 @@ const initialState = {
     userId: null,
     posts: [],
     homepage: [],
-    searchResults: []
+    searchResults: [],
+    chat: []
 }
 
 const startSignup = (state, action) => {
@@ -98,6 +99,12 @@ const searchResults = (state, action) => {
     })
 }
 
+const updateChat = (state,action) =>{
+    return updateObject(state, {
+        chat: action.message
+    })
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case(actionTypes.AUTH_SIGNUP_START): return startSignup(state, action);
@@ -112,6 +119,7 @@ const reducer = (state = initialState, action) => {
         case(actionTypes.UPDATE_CARD): return updateCard(state, action);
         case(actionTypes.GET_CURRENT_CARDS): return getCurrentCards(state, action);
         case(actionTypes.SEARCH): return searchResults(state, action);
+        case(actionTypes.UPDATE_CHAT): return updateChat(state, action);
         default: return state;
     }
 }

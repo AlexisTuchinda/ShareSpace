@@ -39,3 +39,5 @@ export const RESET_ALL = "RESET_ALL";
 export const TEST = "TEST";
 
 export const SEARCH= "SEARCH";
+
+export const UPDATE_CHAT = "UPDATE_CHAT";

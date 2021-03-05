@@ -5,3 +5,7 @@ Oasis Stream (Turquoise): rgba(154, 236, 219,1.0)
 
 Highlighter Lavendar (Dark Purple): rgba(130, 88, 159,1.0)
 Bright Ube (Light Pinkish Purple): rgba(214, 162, 232,1.0)
+
+BUBBLE GUM oINK: rgba(255, 130, 245, 0.76)
+
+CROWN YELLOW: rgba(255, 229, 33, 0.75)

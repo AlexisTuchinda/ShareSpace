@@ -9,6 +9,7 @@ import {connect, useDispatch} from "react-redux";
 import {withRouter} from "react-router-dom";
 import * as actions from "../../store/actions";
 import {auth} from "../../store/actions";
+import Logo from "../../res/Mural_Logo.png";
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
@@ -36,6 +37,9 @@ function Login() {
     //   ...loginInfo
     // };
     dispatch(auth(loginInfo, false));
+    // if (props.loggedIn){
+    //props.history.push("/profile");
+    // }
   };
 
   const changePassword = e => {
@@ -46,7 +50,12 @@ function Login() {
   }
 
   return (
+  <div className = {"pageContainer"}>
+
     <div className={"outerContainer"}>
+    <div className = {"logo"}>
+    <img src = {Logo}/>
+      </div>
       <div className = {"x"}>
         <input
           onChange={changeUsername}
@@ -60,14 +69,27 @@ function Login() {
           id="passwordInput"
           placeholder = "Password"
         />
-        
+        </div>
         <button onClick={submit}>LOGIN</button>
         <h2>{isLogged ? "LOGGED IN" : ""}</h2>
-      </div>
+      
       <button onClick = {()=>{enterSignup(!isSignup); if (isSignup) {changeTxt("Open Signup")} else{changeTxt("Close Signup")}}}>{buttonTxt}</button>
       {isSignup? <Signup/> : null}
     </div>
+  </div>
   );
 }
 
-export default Login;
+function mapStateToProps(state){
+  return {
+    loggedIn: state.main.loggedIn
+  }
+}
+
+function mapDispatchToProps(state){
+  return{
+    
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps) (Login));

@@ -12,7 +12,7 @@ class CommentBox extends React.Component{
         this.state = {
             comments: props.comments,
             username: props.username,
-            commentInput: "",
+            commentInput: "",   
             showComments: false,
             cardId: props.cardId
         };

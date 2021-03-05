@@ -5,8 +5,8 @@
     max-width: 40%;
     height: auto;
     margin: auto;
+    margin-top: 17%;
     align-items: center;
-    margin-top: 25%;
     background: rgba(130, 88, 159,1.0);
     border: 5px solid rgba(255, 229, 33, 0.75);
     padding: 25px;
@@ -16,5 +16,17 @@
 .x{
     display: flex;
     flex-direction: column;
+    padding: 10px;
     /* background-color: red; */
+}
+
+.logo{
+    width:60%;
+    height: 45%;
+    margin: auto;
+}
+
+.pageContainer{
+    width: 100vw;
+    height: 100vh;
 }

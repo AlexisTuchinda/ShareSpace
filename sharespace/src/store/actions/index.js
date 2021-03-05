@@ -11,6 +11,8 @@ export {
     updateCard,
     getCurrentCards,
     getUsername,
-    search
+    search,
+    updateChat,
+    sendMessage
     //test
 } from "./main"

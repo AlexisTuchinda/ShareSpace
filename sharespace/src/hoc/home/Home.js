@@ -6,6 +6,7 @@ import {withRouter} from "react-router-dom";
 import * as actions from "../../store/actions";
 import "./Home.css";
 import Search from "../../components/Searchbar/Search";
+import Chat from "../../components/Chat/Chat";
 
 class Home extends React.Component{
     constructor(props){
@@ -51,6 +52,7 @@ class Home extends React.Component{
                        {this.showCards()}
                         </div>
                 </div>  
+                <Chat/>
             </div>
         )
     }
